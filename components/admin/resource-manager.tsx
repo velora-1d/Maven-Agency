@@ -264,7 +264,11 @@ export function ResourceManager({
               )}
 
               {field.media && (
-                <MediaUploadField onUploaded={(val) => updateField(field.name, val)} />
+                <MediaUploadField
+                  value={String(formValues[field.name] ?? "")}
+                  resource={resource}
+                  onUploaded={(val) => updateField(field.name, val)}
+                />
               )}
             </label>
           ))}
