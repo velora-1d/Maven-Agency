@@ -34,6 +34,7 @@ export async function PUT(request: Request) {
       return NextResponse.json({ error: error.flatten() }, { status: 400 });
     }
 
+    console.error("[maven-forge] PUT /api/admin/settings error:", error);
     return NextResponse.json({ error: "Unable to save settings" }, { status: 500 });
   }
 }

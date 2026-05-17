@@ -65,6 +65,7 @@ export async function POST(
       return NextResponse.json({ error: error.flatten() }, { status: 400 });
     }
 
+    console.error(`[maven-forge] POST /api/admin/${resource} error:`, error);
     return NextResponse.json({ error: "Unable to save item" }, { status: 500 });
   }
 }

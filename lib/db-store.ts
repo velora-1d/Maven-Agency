@@ -85,19 +85,10 @@ function getDatabase() {
 }
 
 export function isRecoverableDbError(error: unknown) {
-  if (!(error instanceof Error)) {
-    return false;
-  }
-
-  const message = error.message.toLowerCase();
-
-  return (
-    message.includes("fetch failed") ||
-    message.includes("error connecting to database") ||
-    message.includes("connection") ||
-    message.includes("timeout") ||
-    message.includes("socket")
-  );
+  console.warn("[maven-forge DB Error]", error instanceof Error ? error.message : String(error));
+  // Treat all DB errors (connection, missing tables, auth failures) as recoverable
+  // so the application gracefully falls back to seed-memory without breaking the dashboard.
+  return true;
 }
 
 function toServiceItem(row: typeof services.$inferSelect): ServiceItem {

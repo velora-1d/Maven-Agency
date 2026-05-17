@@ -46,6 +46,7 @@ export async function PATCH(
       return NextResponse.json({ error: error.flatten() }, { status: 400 });
     }
 
+    console.error(`[maven-forge] PATCH /api/admin/${resource}/${id} error:`, error);
     return NextResponse.json({ error: "Unable to update item" }, { status: 500 });
   }
 }
@@ -65,6 +66,11 @@ export async function DELETE(
     return NextResponse.json({ error: "Unknown resource" }, { status: 404 });
   }
 
-  const result = await deleteResourceItem(resource, id);
-  return NextResponse.json(result);
+  try {
+    const result = await deleteResourceItem(resource, id);
+    return NextResponse.json(result);
+  } catch (error) {
+    console.error(`[maven-forge] DELETE /api/admin/${resource}/${id} error:`, error);
+    return NextResponse.json({ error: "Unable to delete item" }, { status: 500 });
+  }
 }

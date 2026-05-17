@@ -8,6 +8,7 @@ const fallbackEmail = getEnvValue("ADMIN_EMAIL", "");
 const fallbackPassword = getEnvValue("ADMIN_PASSWORD", "");
 
 export const authOptions: NextAuthOptions = {
+  secret: process.env.NEXTAUTH_SECRET || "fallback_secret_for_development_and_builds_1234567890",
   session: {
     strategy: "jwt"
   },
