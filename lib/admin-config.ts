@@ -55,7 +55,12 @@ function parseSocialLines(value: string) {
         return null;
       }
 
-      return { label, url };
+      let cleanUrl = url;
+      if (!cleanUrl.startsWith("http://") && !cleanUrl.startsWith("https://")) {
+        cleanUrl = `https://${cleanUrl}`;
+      }
+
+      return { label, url: cleanUrl };
     })
     .filter(Boolean) as Array<{ label: string; url: string }>;
 }
@@ -107,7 +112,7 @@ export const resourceConfigs: Record<
       titleEn: "",
       descriptionId: "",
       descriptionEn: "",
-      icon: "",
+      icon: "1",
       blockColor: "#FF6B00",
       sortOrder: 0,
       isActive: true
@@ -124,17 +129,17 @@ export const resourceConfigs: Record<
       isActive: item.isActive
     }),
     toPayload: (values) => ({
-      slug: slugify(readString(values, "slug")),
+      slug: slugify(readString(values, "slug")) || "service",
       title: {
-        id: readString(values, "titleId"),
-        en: readString(values, "titleEn")
+        id: readString(values, "titleId") || "Layanan",
+        en: readString(values, "titleEn") || "Service"
       },
       description: {
-        id: readString(values, "descriptionId"),
-        en: readString(values, "descriptionEn")
+        id: readString(values, "descriptionId") || "Deskripsi layanan singkat.",
+        en: readString(values, "descriptionEn") || "Brief service description."
       },
-      icon: readString(values, "icon"),
-      blockColor: readString(values, "blockColor"),
+      icon: readString(values, "icon") || "1",
+      blockColor: readString(values, "blockColor") || "#FF6B00",
       sortOrder: readNumber(values, "sortOrder"),
       isActive: readBoolean(values, "isActive")
     }),
@@ -198,22 +203,22 @@ export const resourceConfigs: Record<
       isActive: item.isActive
     }),
     toPayload: (values) => ({
-      slug: slugify(readString(values, "slug")),
+      slug: slugify(readString(values, "slug")) || "project",
       title: {
-        id: readString(values, "titleId"),
-        en: readString(values, "titleEn")
+        id: readString(values, "titleId") || "Judul Proyek",
+        en: readString(values, "titleEn") || "Project Title"
       },
       summary: {
-        id: readString(values, "summaryId"),
-        en: readString(values, "summaryEn")
+        id: readString(values, "summaryId") || "Ringkasan proyek.",
+        en: readString(values, "summaryEn") || "Project summary."
       },
       category: {
-        id: readString(values, "categoryId"),
-        en: readString(values, "categoryEn")
+        id: readString(values, "categoryId") || "Kategori",
+        en: readString(values, "categoryEn") || "Category"
       },
       highlight: {
-        id: readString(values, "highlightId"),
-        en: readString(values, "highlightEn")
+        id: readString(values, "highlightId") || "Sorotan proyek.",
+        en: readString(values, "highlightEn") || "Project highlight."
       },
       image: readString(values, "image"),
       techStack: parseCommaList(readString(values, "techStack")),
@@ -268,14 +273,14 @@ export const resourceConfigs: Record<
       isActive: item.isActive
     }),
     toPayload: (values) => ({
-      name: readString(values, "name"),
+      name: readString(values, "name") || "Nama Anggota",
       role: {
-        id: readString(values, "roleId"),
-        en: readString(values, "roleEn")
+        id: readString(values, "roleId") || "Peran",
+        en: readString(values, "roleEn") || "Role"
       },
       bio: {
-        id: readString(values, "bioId"),
-        en: readString(values, "bioEn")
+        id: readString(values, "bioId") || "Biodata singkat.",
+        en: readString(values, "bioEn") || "Brief bio."
       },
       avatar: readString(values, "avatar"),
       socials: parseSocialLines(readString(values, "socials")),
@@ -320,13 +325,13 @@ export const resourceConfigs: Record<
       isActive: item.isActive
     }),
     toPayload: (values) => ({
-      clientName: readString(values, "clientName"),
-      company: readString(values, "company"),
+      clientName: readString(values, "clientName") || "Nama Klien",
+      company: readString(values, "company") || "Perusahaan Klien",
       quote: {
-        id: readString(values, "quoteId"),
-        en: readString(values, "quoteEn")
+        id: readString(values, "quoteId") || "Ulasan klien yang sangat puas.",
+        en: readString(values, "quoteEn") || "Very satisfied client review."
       },
-      rating: readNumber(values, "rating"),
+      rating: readNumber(values, "rating") || 5,
       sortOrder: readNumber(values, "sortOrder"),
       isActive: readBoolean(values, "isActive")
     }),
@@ -409,23 +414,23 @@ export const resourceConfigs: Record<
       const featureEnLines = parseLines(readString(values, "featuresEn"));
 
       return {
-        slug: slugify(readString(values, "slug")),
+        slug: slugify(readString(values, "slug")) || "paket",
         name: {
-          id: readString(values, "nameId"),
-          en: readString(values, "nameEn")
+          id: readString(values, "nameId") || "Nama Paket",
+          en: readString(values, "nameEn") || "Package Name"
         },
         description: {
-          id: readString(values, "descriptionId"),
-          en: readString(values, "descriptionEn")
+          id: readString(values, "descriptionId") || "Deskripsi paket.",
+          en: readString(values, "descriptionEn") || "Package description."
         },
         category: {
-          id: readString(values, "categoryId"),
-          en: readString(values, "categoryEn")
+          id: readString(values, "categoryId") || "Kategori",
+          en: readString(values, "categoryEn") || "Category"
         },
         technologyLabels: parseCommaList(readString(values, "technologyLabels")),
         features: featureIdLines.map((value, index) => ({
-          id: value,
-          en: featureEnLines[index] ?? value
+          id: value || "Fitur",
+          en: featureEnLines[index] || value || "Feature"
         })),
         priceFrom: readBoolean(values, "isPriceHidden")
           ? null
@@ -434,11 +439,17 @@ export const resourceConfigs: Record<
           ? null
           : readNumber(values, "priceTo"),
         priceLabel: {
-          id: readString(values, "priceLabelId"),
-          en: readString(values, "priceLabelEn")
+          id: readString(values, "priceLabelId") || "Mulai dari",
+          en: readString(values, "priceLabelEn") || "Starting from"
         },
         isPriceHidden: readBoolean(values, "isPriceHidden"),
-        ctaUrl: readString(values, "ctaUrl"),
+        ctaUrl: (() => {
+          let u = readString(values, "ctaUrl");
+          if (u && !u.startsWith("http://") && !u.startsWith("https://")) {
+            u = `https://${u}`;
+          }
+          return u || "https://wa.me/6281234567890";
+        })(),
         sortOrder: readNumber(values, "sortOrder"),
         isActive: readBoolean(values, "isActive")
       };
@@ -541,45 +552,45 @@ export function getSettingsFields(): ResourceField[] {
 export function settingsValuesToPayload(values: ResourceFormValues): SiteSettings {
   return {
     heroBadge: {
-      id: readString(values, "heroBadgeId"),
-      en: readString(values, "heroBadgeEn")
+      id: readString(values, "heroBadgeId") || "Inovasi Digital",
+      en: readString(values, "heroBadgeEn") || "Digital Innovation"
     },
     heroHeadline: {
-      id: readString(values, "heroHeadlineId"),
-      en: readString(values, "heroHeadlineEn")
+      id: readString(values, "heroHeadlineId") || "Solusi Digital Terbaik",
+      en: readString(values, "heroHeadlineEn") || "Best Digital Solutions"
     },
     heroSubheadline: {
-      id: readString(values, "heroSubheadlineId"),
-      en: readString(values, "heroSubheadlineEn")
+      id: readString(values, "heroSubheadlineId") || "Kami membantu bisnis Anda tumbuh.",
+      en: readString(values, "heroSubheadlineEn") || "We help your business grow."
     },
     heroCtaLabel: {
-      id: readString(values, "heroCtaLabelId"),
-      en: readString(values, "heroCtaLabelEn")
+      id: readString(values, "heroCtaLabelId") || "Hubungi Kami",
+      en: readString(values, "heroCtaLabelEn") || "Contact Us"
     },
-    heroCtaHref: readString(values, "heroCtaHref"),
+    heroCtaHref: readString(values, "heroCtaHref") || "#contact",
     aboutHeadline: {
-      id: readString(values, "aboutHeadlineId"),
-      en: readString(values, "aboutHeadlineEn")
+      id: readString(values, "aboutHeadlineId") || "Tentang Kami",
+      en: readString(values, "aboutHeadlineEn") || "About Us"
     },
     aboutStory: {
-      id: readString(values, "aboutStoryId"),
-      en: readString(values, "aboutStoryEn")
+      id: readString(values, "aboutStoryId") || "Cerita perjalanan agensi kami dalam memberikan solusi teknologi terbaik.",
+      en: readString(values, "aboutStoryEn") || "Our agency journey story in delivering the best technology solutions."
     },
     mission: {
-      id: readString(values, "missionId"),
-      en: readString(values, "missionEn")
+      id: readString(values, "missionId") || "Memberikan solusi teknologi yang inovatif dan andal.",
+      en: readString(values, "missionEn") || "Delivering innovative and reliable technology solutions."
     },
     vision: {
-      id: readString(values, "visionId"),
-      en: readString(values, "visionEn")
+      id: readString(values, "visionId") || "Menjadi agensi teknologi terdepan dan terpercaya.",
+      en: readString(values, "visionEn") || "Becoming the leading and trusted technology agency."
     },
     stats: parseLines(readString(values, "stats")).map((entry) => {
       const [value, labelId, labelEn] = entry.split("|").map((part) => part.trim());
       return {
-        value: value ?? "",
+        value: value || "100+",
         label: {
-          id: labelId ?? "",
-          en: labelEn ?? labelId ?? ""
+          id: labelId || "Klien Puas",
+          en: labelEn || labelId || "Satisfied Clients"
         }
       };
     }),
@@ -589,29 +600,29 @@ export function settingsValuesToPayload(values: ResourceFormValues): SiteSetting
         .map((part) => part.trim());
       return {
         title: {
-          id: titleId ?? "",
-          en: titleEn ?? titleId ?? ""
+          id: titleId || "Kualitas Terjamin",
+          en: titleEn || titleId || "Guaranteed Quality"
         },
         body: {
-          id: bodyId ?? "",
-          en: bodyEn ?? bodyId ?? ""
+          id: bodyId || "Kami selalu memberikan yang terbaik untuk klien.",
+          en: bodyEn || bodyId || "We always give the best for our clients."
         }
       };
     }),
     contactHeadline: {
-      id: readString(values, "contactHeadlineId"),
-      en: readString(values, "contactHeadlineEn")
+      id: readString(values, "contactHeadlineId") || "Mulai Proyek Anda",
+      en: readString(values, "contactHeadlineEn") || "Start Your Project"
     },
     contactCopy: {
-      id: readString(values, "contactCopyId"),
-      en: readString(values, "contactCopyEn")
+      id: readString(values, "contactCopyId") || "Hubungi tim kami untuk mendiskusikan kebutuhan bisnis Anda.",
+      en: readString(values, "contactCopyEn") || "Contact our team to discuss your business needs."
     },
-    whatsapp: readString(values, "whatsapp"),
-    phone: readString(values, "phone"),
-    email: readString(values, "email"),
+    whatsapp: readString(values, "whatsapp") || "6281234567890",
+    phone: readString(values, "phone") || "+62 812 3456 7890",
+    email: readString(values, "email") || "info@maven.my.id",
     address: {
-      id: readString(values, "addressId"),
-      en: readString(values, "addressEn")
+      id: readString(values, "addressId") || "Jl. Sudirman No. 1, Jakarta",
+      en: readString(values, "addressEn") || "Sudirman St No. 1, Jakarta"
     },
     socials: parseSocialLines(readString(values, "socials"))
   };
