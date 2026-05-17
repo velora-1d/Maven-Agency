@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>MAVEN Forge - Homepage</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&amp;family=JetBrains+Mono:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary-fixed-dim": "#ffb4a8",
+                        "on-primary": "#ffffff",
+                        "surface-dim": "#dadada",
+                        "on-secondary-fixed": "#351000",
+                        "primary-container": "#cc0000",
+                        "on-tertiary-fixed-variant": "#0039b4",
+                        "on-primary-fixed-variant": "#930000",
+                        "surface-tint": "#c00000",
+                        "true-black": "#000000",
+                        "on-surface": "#1a1c1c",
+                        "inverse-surface": "#2f3131",
+                        "deep-black": "#0A0A0A",
+                        "surface-container": "#eeeeee",
+                        "on-surface-variant": "#5e3f3a",
+                        "outline-variant": "#e8bdb6",
+                        "error-container": "#ffdad6",
+                        "error": "#ba1a1a",
+                        "on-secondary-fixed-variant": "#7a3000",
+                        "inverse-on-surface": "#f0f1f1",
+                        "secondary-fixed": "#ffdbcc",
+                        "surface-container-high": "#e8e8e8",
+                        "tertiary-container": "#0052f9",
+                        "on-tertiary-fixed": "#001551",
+                        "on-background": "#1a1c1c",
+                        "primary-fixed": "#ffdad4",
+                        "inverse-primary": "#ffb4a8",
+                        "primary": "#9e0000",
+                        "on-error": "#ffffff",
+                        "on-secondary-container": "#572000",
+                        "on-primary-fixed": "#410000",
+                        "secondary-container": "#fe6b00",
+                        "outline": "#926e69",
+                        "surface-container-low": "#f3f3f4",
+                        "on-tertiary-container": "#dce1ff",
+                        "secondary": "#a04100",
+                        "surface-variant": "#e2e2e2",
+                        "on-tertiary": "#ffffff",
+                        "background": "#f9f9f9",
+                        "surface-container-highest": "#e2e2e2",
+                        "surface-container-lowest": "#ffffff",
+                        "tertiary-fixed": "#dce1ff",
+                        "tertiary-fixed-dim": "#b7c4ff",
+                        "on-primary-container": "#ffdad4",
+                        "paper-white": "#FFFFFF",
+                        "tertiary": "#003ec2",
+                        "on-error-container": "#93000a",
+                        "on-secondary": "#ffffff",
+                        "secondary-fixed-dim": "#ffb693",
+                        "surface-bright": "#f9f9f9",
+                        "surface": "#f9f9f9"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "container-max": "1440px",
+                        "shadow-offset": "6px",
+                        "section-padding": "80px",
+                        "border-width": "3px",
+                        "gutter": "24px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["JetBrains Mono"],
+                        "body-lg": ["JetBrains Mono"],
+                        "display-2xl": ["Bebas Neue"],
+                        "headline-md": ["Bebas Neue"],
+                        "headline-lg-mobile": ["Bebas Neue"],
+                        "headline-lg": ["Bebas Neue"],
+                        "label-mono": ["JetBrains Mono"]
+                    },
+                    "fontSize": {
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "500" }],
+                        "display-2xl": ["120px", { "lineHeight": "110px", "letterSpacing": "0.02em", "fontWeight": "400" }],
+                        "headline-md": ["32px", { "lineHeight": "32px", "fontWeight": "400" }],
+                        "headline-lg-mobile": ["48px", { "lineHeight": "48px", "fontWeight": "400" }],
+                        "headline-lg": ["64px", { "lineHeight": "64px", "letterSpacing": "0.03em", "fontWeight": "400" }],
+                        "label-mono": ["14px", { "lineHeight": "16px", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .hard-shadow {
+            box-shadow: 6px 6px 0px 0px rgba(0,0,0,1);
+        }
+        .hard-shadow-hover:hover {
+            box-shadow: 6px 6px 0px 0px rgba(0,0,0,1);
+            transform: translate(-2px, -2px);
+        }
+        .hard-shadow-active:active {
+            box-shadow: 0px 0px 0px 0px rgba(0,0,0,1);
+            transform: translate(6px, 6px);
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body-md min-h-screen flex flex-col selection:bg-primary-container selection:text-paper-white">
+<!-- TopNavBar -->
+<nav class="bg-surface dark:bg-surface w-full top-0 z-50 sticky border-b-[3px] border-true-black">
+<div class="flex justify-between items-center w-full px-gutter py-4 max-w-container-max mx-auto">
+<div class="font-headline-md text-headline-md font-black text-primary dark:text-primary-fixed-dim tracking-tighter">
+                MAVEN FORGE
+            </div>
+<!-- Desktop Navigation -->
+<div class="hidden md:flex items-center space-x-8">
+<a class="font-headline-md text-headline-md uppercase text-secondary dark:text-secondary-fixed underline decoration-[3px] underline-offset-8" href="#">HOME</a>
+<a class="font-headline-md text-headline-md uppercase text-on-surface dark:text-on-surface hover:text-primary hover:translate-x-[2px] hover:translate-y-[2px] transition-transform active:translate-x-[4px] active:translate-y-[4px]" href="#">ABOUT</a>
+<a class="font-headline-md text-headline-md uppercase text-on-surface dark:text-on-surface hover:text-primary hover:translate-x-[2px] hover:translate-y-[2px] transition-transform active:translate-x-[4px] active:translate-y-[4px]" href="#">SERVICES</a>
+<a class="font-headline-md text-headline-md uppercase text-on-surface dark:text-on-surface hover:text-primary hover:translate-x-[2px] hover:translate-y-[2px] transition-transform active:translate-x-[4px] active:translate-y-[4px]" href="#">PORTFOLIO</a>
+<a class="font-headline-md text-headline-md uppercase text-on-surface dark:text-on-surface hover:text-primary hover:translate-x-[2px] hover:translate-y-[2px] transition-transform active:translate-x-[4px] active:translate-y-[4px]" href="#">CATALOG</a>
+</div>
+<!-- Primary Action -->
+<a class="hidden md:inline-flex bg-primary-container text-paper-white border-[3px] border-true-black hard-shadow hard-shadow-hover hard-shadow-active font-headline-md text-headline-md uppercase px-6 py-2 transition-all hover:bg-secondary-container" href="#">
+                START A PROJECT
+            </a>
+<!-- Mobile Menu Toggle -->
+<button class="md:hidden p-2 text-true-black border-[3px] border-true-black hard-shadow active:translate-x-1 active:translate-y-1 active:shadow-none bg-paper-white">
+<span class="material-symbols-outlined block">menu</span>
+</button>
+</div>
+</nav>
+<main class="flex-grow">
+<!-- Hero Section -->
+<section class="border-b-[3px] border-true-black bg-surface-container overflow-hidden">
+<div class="max-w-container-max mx-auto px-gutter py-section-padding md:py-24">
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter items-center">
+<!-- Text Block -->
+<div class="md:col-span-7 z-10 relative">
+<!-- Chip -->
+<div class="inline-block bg-secondary-container text-paper-white border-[3px] border-true-black px-4 py-1 mb-8 hard-shadow transform -rotate-2">
+<span class="font-label-mono text-label-mono uppercase">DIGITAL INDUSTRIAL PLANT</span>
+</div>
+<h1 class="font-display-2xl text-display-2xl text-true-black uppercase mb-6 leading-none">
+                            Forge Your <br/>
+<span class="text-primary-container">Digital</span> Future
+                        </h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-xl mb-10 border-l-[3px] border-secondary-container pl-6">
+                            We don't build soft, fragile websites. We engineer brutal, high-performance digital infrastructure designed to dominate your market. Raw energy, uncompromising aesthetics.
+                        </p>
+<div class="flex flex-col sm:flex-row gap-6">
+<a class="inline-flex justify-center items-center bg-true-black text-paper-white border-[3px] border-true-black hard-shadow hard-shadow-hover hard-shadow-active font-headline-md text-headline-md uppercase px-8 py-4 transition-all hover:bg-secondary-container" href="#">
+                                VIEW PORTFOLIO
+                                <span class="material-symbols-outlined ml-2">arrow_forward</span>
+</a>
+</div>
+</div>
+<!-- Asymmetric Image Grid -->
+<div class="md:col-span-5 relative mt-12 md:mt-0 h-[500px]">
+<!-- Image 1 -->
+<div class="absolute top-0 right-0 w-[80%] h-[60%] border-[3px] border-true-black bg-paper-white hard-shadow overflow-hidden z-10">
+<img alt="Industrial Tech" class="w-full h-full object-cover filter grayscale contrast-125" data-alt="A highly stylized, industrial server room or data center viewed from a dynamic, tilted angle. The lighting is harsh and high-contrast, featuring intense neon red and stark white tones against deep black shadows. Cables and metallic racks create an intricate, brutalist geometric pattern. The aesthetic is raw, technological, and aggressive." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCEcwZCfNdHqFMbcpojVNwHem0Svant1UWwF7pRS49R4m3etvM7vTf8oXeLCboO3yi3c7e67TX-R2-cjLAJtD5QilAMHDaguHqEKLRzLrnbBsFop0aHVScFavSjGQQkFO-2z0CUWjhfw5CERqFfddsLf8GpkmxgzdcXfh7ba_3vlijxWDHmI8zSgmliaF1oFwnznqZAWKiSlUILx4jRR-SDrCXYOmziATAN0bE4_Wq7CuRyz1DkYMAm5-U-51gBqP5sU8qBifIQ_O0"/>
+</div>
+<!-- Image 2 -->
+<div class="absolute bottom-0 left-0 w-[70%] h-[55%] border-[3px] border-true-black bg-primary-container hard-shadow overflow-hidden z-20">
+<img alt="Machine Logic" class="w-full h-full object-cover mix-blend-multiply" data-alt="A close-up shot of heavy machinery or robotic manufacturing equipment in motion. The image is bathed in bright orange and stark white light, emphasizing the sharp edges and metallic textures of the industrial components. The composition is slightly off-balance, contributing to a sense of raw energy and mechanical power consistent with neo-brutalism." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDppjGUi5kmiA3cdCgk-ng3TQAPZpBU4J_vgtWAhQM6iH37_zw5cV2EDj_w4bva7hAfHuERRFdQDIG_hLaCtdc5aJ2vJw7qyOH9APo8sZUMTgnTvSBx8SuMqewJiAOQWMNyaBGujBStCrPjrbmZ_h64e-lMZPLjU2rMFH7EO5pgtSu3y0suff1Gdd1fVCFE58ejUWMrQfL1w6qgFt8Osn8-cH1ILXU3bVsbO7bo1t4ycBFCbXG6r5wAy3QWKBkTfVcJr3vz61e6b8Q"/>
+<div class="absolute bottom-0 left-0 w-full bg-true-black border-t-[3px] border-true-black p-3">
+<span class="font-label-mono text-label-mono text-paper-white uppercase">SYSTEM_ACTIVE // 01</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Stats / About Section -->
+<section class="border-b-[3px] border-true-black bg-paper-white relative">
+<div class="max-w-container-max mx-auto px-gutter py-section-padding">
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+<div class="relative">
+<!-- Decorative brutalist element -->
+<div class="absolute -top-6 -left-6 w-24 h-24 border-[3px] border-true-black border-b-0 border-r-0 z-0"></div>
+<h2 class="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-true-black uppercase mb-8 relative z-10">
+                            WE BUILD <br/>
+<span class="bg-true-black text-paper-white px-4 inline-block mt-2">HEAVY MACHINERY</span><br/>
+                            FOR THE WEB.
+                        </h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant mb-6">
+                            Forget templated SaaS aesthetics. We are a digital forge. We take raw ideas, apply extreme pressure, and hammer out bespoke digital platforms that demand attention and drive relentless conversion.
+                        </p>
+</div>
+<!-- Big Stats Bento -->
+<div class="grid grid-cols-2 gap-6">
+<!-- Stat Card 1 -->
+<div class="border-[3px] border-true-black bg-surface-container p-8 hard-shadow relative overflow-hidden group">
+<div class="font-label-mono text-label-mono text-true-black mb-2 absolute top-4 right-4 bg-paper-white border-[3px] border-true-black px-2">IDX_01</div>
+<div class="font-display-2xl text-display-2xl text-primary-container leading-none mb-4 group-hover:text-secondary-container transition-colors">50+</div>
+<div class="font-headline-md text-headline-md text-true-black uppercase">CLIENTS</div>
+</div>
+<!-- Stat Card 2 -->
+<div class="border-[3px] border-true-black bg-true-black p-8 hard-shadow relative overflow-hidden group transform translate-y-8">
+<div class="font-label-mono text-label-mono text-paper-white mb-2 absolute top-4 right-4 bg-primary-container border-[3px] border-paper-white px-2">IDX_02</div>
+<div class="font-display-2xl text-display-2xl text-paper-white leading-none mb-4 group-hover:text-primary-container transition-colors">120+</div>
+<div class="font-headline-md text-headline-md text-paper-white uppercase">PROJECTS</div>
+</div>
+<!-- Stat Card 3 -->
+<div class="col-span-2 border-[3px] border-true-black bg-primary-container p-8 hard-shadow mt-8 flex justify-between items-end">
+<div>
+<div class="font-headline-md text-headline-md text-paper-white uppercase mb-2">AWARDS WON</div>
+<div class="font-display-2xl text-display-2xl text-true-black leading-none">15</div>
+</div>
+<span class="material-symbols-outlined text-[80px] text-true-black mb-4">trophy</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Why Us (Editorial Layout) -->
+<section class="border-b-[3px] border-true-black bg-surface-container-high py-section-padding">
+<div class="max-w-container-max mx-auto px-gutter">
+<div class="flex flex-col md:flex-row justify-between items-end mb-16 border-b-[3px] border-true-black pb-8">
+<h2 class="font-display-2xl text-display-2xl text-true-black uppercase leading-none m-0">WHY MAVEN</h2>
+<div class="font-label-mono text-label-mono text-true-black uppercase border-[3px] border-true-black bg-secondary-container text-paper-white px-4 py-2 hard-shadow mt-6 md:mt-0">
+                        THE DIFFERENCE IS BRUTAL
+                    </div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+<!-- Editorial Column 1 -->
+<div class="md:col-span-4 border-r-0 md:border-r-[3px] border-true-black md:pr-gutter mb-12 md:mb-0">
+<div class="border-[3px] border-true-black bg-paper-white p-6 hard-shadow mb-8 relative">
+<div class="absolute -top-4 -right-4 bg-primary-container text-paper-white font-headline-md text-headline-md px-3 py-1 border-[3px] border-true-black">01</div>
+<h3 class="font-headline-lg text-headline-md md:text-headline-lg text-true-black uppercase mb-4">NO NOISE.</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">
+                                We strip away the unnecessary. In a digital landscape cluttered with fluffy animations and generic templates, a stark, uncompromising functional design is the ultimate flex.
+                            </p>
+</div>
+<img alt="Abstract Concrete" class="w-full border-[3px] border-true-black hard-shadow" data-alt="An abstract, stark composition of geometric concrete blocks and harsh black shadows against a white background. The image has a raw, minimalist aesthetic with high contrast, emphasizing sharp angles and lack of ornamentation. A single bold red line cuts through the composition, adding an industrial neo-brutalist accent." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCVhsm7g3JaB2tk5XjRADSweZSp5YZC0HFePrRCEtqIKGzg9IYEv7ge2AhdxWGdaRRQi-ZZnruXKLiEkYPx8PS8GVzMt8UOrgitMQ3IfNeMT6ESCEVK6dJ4Hf_Tus4GCLkjPMXPX9EKXHzRmWWpyq5AHNuOVGKXNRQi1f_rDgySdyCvFU5Y2ho83NdbRnrYK6yogqnRDnvxSAbsRyIzlbBALCltO15bQJd54qNLY60itK-O573RI5FyPEo5aeLwM6U6wtfEkluw2vA"/>
+</div>
+<!-- Editorial Column 2 (Wider) -->
+<div class="md:col-span-8">
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-gutter">
+<!-- Feature block -->
+<div class="border-[3px] border-true-black bg-true-black p-8 hard-shadow relative">
+<div class="absolute -top-4 -left-4 bg-secondary-container text-paper-white font-headline-md text-headline-md px-3 py-1 border-[3px] border-true-black">02</div>
+<h3 class="font-headline-lg text-headline-md md:text-headline-lg text-paper-white uppercase mb-4 mt-4">HIGH CONTRAST.</h3>
+<p class="font-body-md text-body-md text-paper-white/80">
+                                    Your brand needs to punch through the screen. We utilize stark palettes, massive typography, and thick borders to ensure your message is impossible to ignore.
+                                </p>
+</div>
+<!-- Feature block -->
+<div class="border-[3px] border-true-black bg-surface-container p-8 hard-shadow relative">
+<div class="absolute -top-4 -right-4 bg-paper-white text-true-black font-headline-md text-headline-md px-3 py-1 border-[3px] border-true-black">03</div>
+<h3 class="font-headline-lg text-headline-md md:text-headline-lg text-true-black uppercase mb-4 mt-4">ENGINEERED.</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">
+                                    Beneath the aggressive exterior lies military-grade code. Fast, accessible, and structured to scale indefinitely. We don't just paint pictures; we build infrastructure.
+                                </p>
+</div>
+</div>
+<!-- CTA Bar inside editorial -->
+<div class="mt-gutter border-[3px] border-true-black bg-primary-container p-8 hard-shadow flex flex-col sm:flex-row justify-between items-center">
+<h3 class="font-headline-md text-headline-md text-paper-white uppercase mb-4 sm:mb-0">READY TO DROP THE HAMMER?</h3>
+<a class="inline-flex justify-center items-center bg-true-black text-paper-white border-[3px] border-paper-white hard-shadow hard-shadow-hover hard-shadow-active font-headline-md text-headline-md uppercase px-8 py-3 transition-all hover:bg-secondary-container hover:border-true-black hover:text-true-black" href="#">
+                                INITIATE
+                                <span class="material-symbols-outlined ml-2">power_settings_new</span>
+</a>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-true-black dark:bg-deep-black w-full mt-section-padding border-t-[3px] border-true-black">
+<div class="flex flex-col md:flex-row justify-between items-start px-gutter py-12 max-w-container-max mx-auto">
+<div class="mb-8 md:mb-0">
+<div class="font-headline-lg text-headline-lg text-primary mb-4">
+                    MAVEN FORGE
+                </div>
+<div class="font-body-md text-body-md uppercase text-paper-white">
+                    ©2024 MAVEN FORGE. ALL RIGHTS RESERVED.
+                </div>
+</div>
+<div class="flex flex-wrap gap-6 md:gap-8">
+<a class="font-body-md text-body-md uppercase text-paper-white/70 hover:text-paper-white hover:text-primary-fixed-dim transition-colors cursor-pointer" href="#">INSTAGRAM</a>
+<a class="font-body-md text-body-md uppercase text-paper-white/70 hover:text-paper-white hover:text-primary-fixed-dim transition-colors cursor-pointer" href="#">TWITTER</a>
+<a class="font-body-md text-body-md uppercase text-paper-white/70 hover:text-paper-white hover:text-primary-fixed-dim transition-colors cursor-pointer" href="#">LINKEDIN</a>
+<a class="font-body-md text-body-md uppercase text-paper-white/70 hover:text-paper-white hover:text-primary-fixed-dim transition-colors cursor-pointer" href="#">PRIVACY</a>
+<a class="font-body-md text-body-md uppercase text-paper-white/70 hover:text-paper-white hover:text-primary-fixed-dim transition-colors cursor-pointer" href="#">TERMS</a>
+</div>
+</div>
+</footer>
+</body></html>

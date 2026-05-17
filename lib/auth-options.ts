@@ -2,10 +2,10 @@ import type { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { compareSync } from "bcryptjs";
 
-import { findAdminUserByEmail } from "@/lib/db-store";
+import { findAdminUserByEmail, getEnvValue, isRecoverableDbError } from "@/lib/db-store";
 
-const fallbackEmail = process.env.ADMIN_EMAIL ?? "admin@mavenforge.com";
-const fallbackPassword = process.env.ADMIN_PASSWORD ?? "forge-admin";
+const fallbackEmail = getEnvValue("ADMIN_EMAIL", "");
+const fallbackPassword = getEnvValue("ADMIN_PASSWORD", "");
 
 export const authOptions: NextAuthOptions = {
   session: {
@@ -33,25 +33,40 @@ export const authOptions: NextAuthOptions = {
         }
 
         if (process.env.DATABASE_URL) {
-          const user = await findAdminUserByEmail(credentials.email);
+          try {
+            const user = await findAdminUserByEmail(credentials.email);
 
-          if (user && compareSync(credentials.password, user.passwordHash)) {
-            return {
-              id: user.id,
-              email: user.email,
-              role: user.role,
-              name: "MAVEN Forge Admin"
-            };
+            if (user && compareSync(credentials.password, user.passwordHash)) {
+              return {
+                id: user.id,
+                email: user.email,
+                role: user.role,
+                name: "MAVEN Forge Admin"
+              };
+            }
+          } catch (error) {
+            if (!isRecoverableDbError(error)) {
+              throw error;
+            }
+
+            console.warn(
+              `[maven-forge] Falling back to env admin auth: ${
+                error instanceof Error ? error.message : String(error)
+              }`
+            );
           }
         }
 
+        const currentFallbackEmail = getEnvValue("ADMIN_EMAIL", "");
+        const currentFallbackPassword = getEnvValue("ADMIN_PASSWORD", "");
+
         if (
-          credentials.email === fallbackEmail &&
-          credentials.password === fallbackPassword
+          credentials.email === currentFallbackEmail &&
+          credentials.password === currentFallbackPassword
         ) {
           return {
             id: "internal-admin",
-            email: fallbackEmail,
+            email: currentFallbackEmail,
             role: "admin",
             name: "MAVEN Forge Admin"
           };

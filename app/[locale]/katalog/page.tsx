@@ -30,27 +30,35 @@ export default async function CatalogPage({ params }: CatalogPageProps) {
   const copy = getUiCopy(locale);
 
   return (
-    <main className="section-shell">
-      <section className="noise brutal-card relative overflow-hidden bg-ink px-6 py-10 text-paper">
-        <div className="absolute -right-10 -top-10 h-32 w-32 rounded-full border-[3px] border-black bg-mint" />
-        <span className="section-kicker relative z-10 bg-paper text-ink">
-          {copy.nav.catalog}
-        </span>
-        <h1 className="relative z-10 mt-6 max-w-4xl font-[family:var(--font-display)] text-6xl uppercase leading-[0.9] sm:text-7xl">
-          {locale === "id"
-            ? "Paket digital yang siap dibentuk sesuai ritme bisnis Anda."
-            : "Digital packages ready to be forged around your business rhythm."}
-        </h1>
-        <p className="relative z-10 mt-4 max-w-2xl text-sm text-paper/80 sm:text-base">
-          {locale === "id"
-            ? "Filter berdasarkan kategori, teknologi, dan harga untuk menemukan paket yang paling mendekati target Anda."
-            : "Filter by category, technology, and price to find the package closest to your target."}
-        </p>
+    <main>
+      {/* Hero */}
+      <section className="section-border bg-true-black py-section-padding">
+        <div className="page-container">
+          <div className="relative">
+            <div className="pointer-events-none absolute -right-4 -top-4 h-24 w-24 border-[3px] border-secondary-container" />
+            <div className="mb-6 inline-block -rotate-1 border-[3px] border-paper-white/20 px-4 py-2 font-body text-label-mono uppercase text-paper-white/60">
+              {copy.nav.catalog}
+            </div>
+            <h1 className="mb-6 font-display text-headline-lg-mobile uppercase leading-none text-paper-white md:text-display-2xl">
+              SOLUTION<br />
+              <span className="text-secondary-container">CATALOG.</span>
+            </h1>
+            <p className="max-w-2xl border-l-[3px] border-primary-container pl-6 font-body text-body-lg uppercase text-paper-white/60">
+              {locale === "id"
+                ? "Paket digital yang siap dibentuk sesuai ritme bisnis Anda. Filter berdasarkan kategori, teknologi, dan harga."
+                : "Digital packages ready to be forged around your business rhythm. Filter by category, technology, and price."}
+            </p>
+          </div>
+        </div>
       </section>
 
-      <div className="mt-12">
-        <CatalogExplorer locale={locale} items={data.catalog} labels={copy.labels} />
-      </div>
+      {/* Catalog content (all items, no limit) */}
+      <CatalogExplorer
+        locale={locale}
+        items={data.catalog}
+        labels={copy.labels}
+        showAll
+      />
     </main>
   );
 }

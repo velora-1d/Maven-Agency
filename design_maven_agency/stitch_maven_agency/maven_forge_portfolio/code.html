@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>MAVEN FORGE - Portfolio</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&amp;family=JetBrains+Mono:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary-fixed-dim": "#ffb4a8",
+                        "on-primary": "#ffffff",
+                        "surface-dim": "#dadada",
+                        "on-secondary-fixed": "#351000",
+                        "primary-container": "#cc0000",
+                        "on-tertiary-fixed-variant": "#0039b4",
+                        "on-primary-fixed-variant": "#930000",
+                        "surface-tint": "#c00000",
+                        "true-black": "#000000",
+                        "on-surface": "#1a1c1c",
+                        "inverse-surface": "#2f3131",
+                        "deep-black": "#0A0A0A",
+                        "surface-container": "#eeeeee",
+                        "on-surface-variant": "#5e3f3a",
+                        "outline-variant": "#e8bdb6",
+                        "error-container": "#ffdad6",
+                        "error": "#ba1a1a",
+                        "on-secondary-fixed-variant": "#7a3000",
+                        "inverse-on-surface": "#f0f1f1",
+                        "secondary-fixed": "#ffdbcc",
+                        "surface-container-high": "#e8e8e8",
+                        "tertiary-container": "#0052f9",
+                        "on-tertiary-fixed": "#001551",
+                        "on-background": "#1a1c1c",
+                        "primary-fixed": "#ffdad4",
+                        "inverse-primary": "#ffb4a8",
+                        "primary": "#9e0000",
+                        "on-error": "#ffffff",
+                        "on-secondary-container": "#572000",
+                        "on-primary-fixed": "#410000",
+                        "secondary-container": "#fe6b00",
+                        "outline": "#926e69",
+                        "surface-container-low": "#f3f3f4",
+                        "on-tertiary-container": "#dce1ff",
+                        "secondary": "#a04100",
+                        "surface-variant": "#e2e2e2",
+                        "on-tertiary": "#ffffff",
+                        "background": "#f9f9f9",
+                        "surface-container-highest": "#e2e2e2",
+                        "surface-container-lowest": "#ffffff",
+                        "tertiary-fixed": "#dce1ff",
+                        "tertiary-fixed-dim": "#b7c4ff",
+                        "on-primary-container": "#ffdad4",
+                        "paper-white": "#FFFFFF",
+                        "tertiary": "#003ec2",
+                        "on-error-container": "#93000a",
+                        "on-secondary": "#ffffff",
+                        "secondary-fixed-dim": "#ffb693",
+                        "surface-bright": "#f9f9f9",
+                        "surface": "#f9f9f9"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "container-max": "1440px",
+                        "shadow-offset": "6px",
+                        "section-padding": "80px",
+                        "border-width": "3px",
+                        "gutter": "24px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["JetBrains Mono"],
+                        "body-lg": ["JetBrains Mono"],
+                        "display-2xl": ["Bebas Neue"],
+                        "headline-md": ["Bebas Neue"],
+                        "headline-lg-mobile": ["Bebas Neue"],
+                        "headline-lg": ["Bebas Neue"],
+                        "label-mono": ["JetBrains Mono"]
+                    },
+                    "fontSize": {
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "500" }],
+                        "display-2xl": ["120px", { "lineHeight": "110px", "letterSpacing": "0.02em", "fontWeight": "400" }],
+                        "headline-md": ["32px", { "lineHeight": "32px", "fontWeight": "400" }],
+                        "headline-lg-mobile": ["48px", { "lineHeight": "48px", "fontWeight": "400" }],
+                        "headline-lg": ["64px", { "lineHeight": "64px", "letterSpacing": "0.03em", "fontWeight": "400" }],
+                        "label-mono": ["14px", { "lineHeight": "16px", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-family: 'Material Symbols Outlined';
+            font-weight: normal;
+            font-style: normal;
+            font-size: 24px;
+            line-height: 1;
+            letter-spacing: normal;
+            text-transform: none;
+            display: inline-block;
+            white-space: nowrap;
+            word-wrap: normal;
+            direction: ltr;
+            -webkit-font-feature-settings: 'liga';
+            -webkit-font-smoothing: antialiased;
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body-md overflow-x-hidden selection:bg-secondary-container selection:text-paper-white">
+<!-- TopNavBar -->
+<nav class="bg-surface dark:bg-surface font-headline-md text-headline-md uppercase w-full top-0 z-50 sticky border-b-[3px] border-true-black">
+<div class="flex justify-between items-center w-full px-gutter py-4 max-w-container-max mx-auto">
+<div class="font-headline-md text-headline-md font-black text-primary dark:text-primary-fixed-dim tracking-tighter cursor-pointer hover:translate-x-[2px] hover:translate-y-[2px] transition-transform active:translate-x-[4px] active:translate-y-[4px]">
+                MAVEN FORGE
+            </div>
+<div class="hidden md:flex items-center space-x-8">
+<a class="text-on-surface dark:text-on-surface hover:text-primary hover:translate-x-[2px] hover:translate-y-[2px] transition-transform active:translate-x-[4px] active:translate-y-[4px]" href="#">HOME</a>
+<a class="text-on-surface dark:text-on-surface hover:text-primary hover:translate-x-[2px] hover:translate-y-[2px] transition-transform active:translate-x-[4px] active:translate-y-[4px]" href="#">ABOUT</a>
+<a class="text-on-surface dark:text-on-surface hover:text-primary hover:translate-x-[2px] hover:translate-y-[2px] transition-transform active:translate-x-[4px] active:translate-y-[4px]" href="#">SERVICES</a>
+<a class="text-secondary dark:text-secondary-fixed underline decoration-[3px] underline-offset-8 hover:translate-x-[2px] hover:translate-y-[2px] transition-transform active:translate-x-[4px] active:translate-y-[4px]" href="#">PORTFOLIO</a>
+<a class="text-on-surface dark:text-on-surface hover:text-primary hover:translate-x-[2px] hover:translate-y-[2px] transition-transform active:translate-x-[4px] active:translate-y-[4px]" href="#">CATALOG</a>
+</div>
+<button class="bg-primary-container text-paper-white border-[3px] border-true-black [box-shadow:6px_6px_0px_0px_#000000] px-6 py-2 hover:bg-secondary-container hover:translate-x-[2px] hover:translate-y-[2px] transition-all active:translate-x-[6px] active:translate-y-[6px] active:[box-shadow:0px_0px_0px_0px_#000000] hidden md:block">
+                START A PROJECT
+            </button>
+<button class="md:hidden text-on-surface border-[3px] border-true-black p-1 [box-shadow:4px_4px_0px_0px_#000000] active:translate-x-[4px] active:translate-y-[4px] active:[box-shadow:0px_0px_0px_0px_#000000]">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</button>
+</div>
+</nav>
+<!-- Page Header -->
+<header class="max-w-container-max mx-auto px-gutter py-section-padding border-b-[3px] border-true-black bg-surface-container-lowest">
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter items-end">
+<div class="md:col-span-8">
+<h1 class="font-display-2xl text-display-2xl md:text-[180px] md:leading-[160px] text-true-black uppercase tracking-tighter">
+                    PORTFOLIO
+                </h1>
+<div class="h-[3px] w-full bg-true-black mt-4 mb-4"></div>
+<h2 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-primary-container uppercase">
+                    LOUD. CONFIDENT. FUNCTIONAL.
+                </h2>
+</div>
+<div class="md:col-span-4 pb-4">
+<p class="font-body-lg text-body-lg text-on-surface border-l-[3px] border-primary-container pl-6">
+                    A brutalist showcase of our most uncompromising digital and industrial projects. We build digital plants, not just websites.
+                </p>
+</div>
+</div>
+</header>
+<!-- Portfolio Masonry Grid -->
+<section class="bg-surface-container py-section-padding border-b-[3px] border-true-black">
+<div class="max-w-container-max mx-auto px-gutter">
+<!-- Bento/Masonry Grid Layout -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter auto-rows-[300px]">
+<!-- Project 1 (Large, Wide) -->
+<div class="md:col-span-8 row-span-2 group cursor-pointer border-[3px] border-true-black [box-shadow:6px_6px_0px_0px_#000000] hover:bg-secondary-container transition-colors relative bg-surface-container-lowest flex flex-col active:translate-x-[6px] active:translate-y-[6px] active:[box-shadow:0px_0px_0px_0px_#000000]">
+<!-- Colored Label -->
+<div class="absolute top-4 left-4 z-10 bg-primary-container border-[3px] border-true-black px-3 py-1 [box-shadow:4px_4px_0px_0px_#000000]">
+<span class="font-label-mono text-label-mono text-paper-white uppercase">ARCHITECTURE</span>
+</div>
+<!-- Index Number -->
+<div class="absolute top-4 right-4 z-10 bg-paper-white border-[3px] border-true-black px-2 py-1">
+<span class="font-headline-md text-headline-md text-true-black">01</span>
+</div>
+<div class="flex-grow overflow-hidden border-b-[3px] border-true-black relative">
+<img alt="Project 1" class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500" data-alt="A high-contrast architectural rendering of a brutalist industrial facility made of raw concrete and bright red steel beams. The scene is shot from a dramatic low angle under harsh, bright sunlight, creating stark black shadows. The aesthetic is loud, confident, and neo-brutalist, utilizing a palette of concrete gray, pure black, pristine white, and vibrant red accents." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBV10z9PdOyRgZKoPKDKtnCt6yyTVceDf83c5CPIpzPnOU-dI5JmPFb1r2qvwcqcaqFsGJkoBuk9vyfE0CRPs0Fi2FKXGRP5_YnKGSATCOUMyfYueykrDiN7HLQXU7oPi1G6nk3kW8prUmOEtjzLmSJsRadDbK4crrSkgmbcw4reCrtDxAf0mNMma2-zejQRDKelQ5-k8tlXwj5noIcd-ZxGRYhT5HJlrYEWzqva7Gw4n-9zBftb5Mu8gqfJI8aMPJ6THd7uF9vQrI"/>
+</div>
+<div class="bg-true-black p-6 group-hover:bg-secondary-container transition-colors flex justify-between items-center">
+<h3 class="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-paper-white m-0 leading-none">IRON CLAD FACILITY</h3>
+<span class="material-symbols-outlined text-paper-white text-[48px]" data-icon="arrow_forward">arrow_forward</span>
+</div>
+</div>
+<!-- Project 2 (Tall) -->
+<div class="md:col-span-4 row-span-2 group cursor-pointer border-[3px] border-true-black [box-shadow:6px_6px_0px_0px_#000000] hover:bg-primary-container transition-colors relative bg-surface-container-lowest flex flex-col active:translate-x-[6px] active:translate-y-[6px] active:[box-shadow:0px_0px_0px_0px_#000000]">
+<div class="absolute top-4 left-4 z-10 bg-secondary-container border-[3px] border-true-black px-3 py-1 [box-shadow:4px_4px_0px_0px_#000000]">
+<span class="font-label-mono text-label-mono text-paper-white uppercase">DIGITAL PRODUCT</span>
+</div>
+<div class="absolute top-4 right-4 z-10 bg-paper-white border-[3px] border-true-black px-2 py-1">
+<span class="font-headline-md text-headline-md text-true-black">02</span>
+</div>
+<div class="flex-grow overflow-hidden border-b-[3px] border-true-black">
+<img alt="Project 2" class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500" data-alt="A stylized mockup of a digital dashboard displayed on a thick, boxy monitor with rigid geometric framing. The screen shows asymmetrical grid layouts with thick black borders, neon orange highlights, and large typography. The surrounding environment is minimal but industrial, with harsh overhead lighting emphasizing the physical bulk of the hardware. The mood is raw and purely functional." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDBkzZEd-gthDmaJJy2QkOmm0oo-cfEttQK6pGXcLWYU48Q0AyTLry9grQYKL4wV2KKAmnU1XTreC-w8BLAhKho3C94cqT7cPOh4_Z4o8CefR4yt6u9A2esMJDR8LfYY7xqDnBefEYUnidBBe_km0CpZHaUx6mdSn8q_uqrzSBxxMwi9qCD3VNf9TVVt-qKY7FqFH2SFqYfMzvX_qqbQFF3FQjtAvOOsFSP_SajEaFACGAMTaOTVh1LIQlvpdUYKhUnaDFWR5FHX4M"/>
+</div>
+<div class="bg-true-black p-6 group-hover:bg-primary-container transition-colors">
+<h3 class="font-headline-md text-headline-md text-paper-white m-0">SYS_CONTROL_V2</h3>
+<p class="font-body-md text-body-md text-surface-dim mt-2">DASHBOARD UI / UX</p>
+</div>
+</div>
+<!-- Project 3 (Square-ish) -->
+<div class="md:col-span-5 md:col-start-2 row-span-1 group cursor-pointer border-[3px] border-true-black [box-shadow:6px_6px_0px_0px_#000000] relative bg-true-black flex flex-col mt-12 active:translate-x-[6px] active:translate-y-[6px] active:[box-shadow:0px_0px_0px_0px_#000000]">
+<div class="absolute -top-6 -right-6 z-10 bg-primary-container border-[3px] border-true-black px-3 py-2 [box-shadow:4px_4px_0px_0px_#000000] transform rotate-3">
+<span class="font-label-mono text-label-mono text-paper-white uppercase tracking-widest">BRAND IDENTITY</span>
+</div>
+<div class="absolute bottom-4 left-4 z-10 bg-paper-white border-[3px] border-true-black px-2 py-1">
+<span class="font-headline-md text-headline-md text-true-black">03</span>
+</div>
+<div class="h-full w-full overflow-hidden border-[3px] border-true-black relative group-hover:p-4 transition-all duration-300">
+<img alt="Project 3" class="w-full h-full object-cover grayscale opacity-80 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-500" data-alt="A collection of brand identity materials including posters and business cards scattered asymmetrically on a raw metal table. The designs feature aggressive all-caps typography in Bebas Neue style, thick black dividing lines, and blocks of solid red and orange against white paper. The lighting is strong and editorial, casting hard, sharp black shadows that ground the objects firmly." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBw662gaN1OEZMDNWzMvAldOa7nuRGSXEq7V7qNO9YPo8NKpia55ThrghBxFJADmaLuV21ejGelwnpTZjUv3y2007szdnopT4aw0RTpwoZ-huvstRaw1zDVdDRdnnao2MBlIyyCIrH9MmK7uescdBhK2LCq8WaiyKDVYL4kbNzzYLg3I_mOCSARDaNwYmvpuAVsq5RkRHtuOWWoF5n3DY77jvcxuROh9fF24Aoti54gM7-pMBegnvmEPiPBOMNAmSGKs1A_rV_oFno"/>
+<div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 bg-true-black/50 transition-opacity">
+<h3 class="font-headline-lg text-headline-lg text-paper-white text-center bg-primary-container px-6 py-2 border-[3px] border-true-black [box-shadow:6px_6px_0px_0px_#000000]">CORE REBRAND</h3>
+</div>
+</div>
+</div>
+<!-- Project 4 (Wide) -->
+<div class="md:col-span-6 row-span-1 group cursor-pointer border-[3px] border-true-black [box-shadow:6px_6px_0px_0px_#000000] relative bg-surface-container-lowest flex flex-col mt-0 md:-mt-12 active:translate-x-[6px] active:translate-y-[6px] active:[box-shadow:0px_0px_0px_0px_#000000] z-10">
+<div class="absolute top-4 left-4 z-10 bg-true-black border-[3px] border-true-black px-3 py-1">
+<span class="font-label-mono text-label-mono text-paper-white uppercase">INDUSTRIAL DESIGN</span>
+</div>
+<div class="absolute top-4 right-4 z-10 bg-secondary-container border-[3px] border-true-black px-2 py-1 [box-shadow:4px_4px_0px_0px_#000000]">
+<span class="font-headline-md text-headline-md text-paper-white">04</span>
+</div>
+<div class="flex-grow overflow-hidden border-b-[3px] border-true-black">
+<img alt="Project 4" class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500" data-alt="A physical prototype of a heavy-duty industrial tool, painted in a striking combination of matte white and vibrant safety orange. The object rests on an off-white concrete surface, separated by a sharp, solid black drop shadow that looks almost painted on. The aesthetic is neo-brutalist, prioritizing visible seams, raw functionality, and high-impact color blocking over smooth ergonomics." src="https://lh3.googleusercontent.com/aida-public/AB6AXuASfR46lagfi1tTcy1vEt1XcsEg1dCXVxl1jBfo5GWCXaKqYENPvJV7CrBwOSqL0zRNpSg7-VFItaEDl5fapFYlIgEdQDK28CUML827WA343W9-MwToTWurbw6XatDh5ct5Ny_iKT9h4B71b_2icBCS4MaIgwY4TozJbaBm4WLsqE0FLdAM_X2x7pi_IObKRJm_5gdPLSGdMCo9V9YTsxoYxPXDLUc7WdQbWd-04Sy1SWLb7jtbmVg2D_Ns0_EXCg_ZQ5xcBBc4Bzw"/>
+</div>
+<div class="bg-paper-white p-4 border-t-[3px] border-true-black flex items-center justify-between group-hover:bg-true-black group-hover:text-paper-white transition-colors">
+<h3 class="font-headline-md text-headline-md m-0">HEAVY LIFTER MK II</h3>
+<div class="w-12 h-12 rounded-full border-[3px] border-true-black bg-primary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-paper-white" data-icon="add">add</span>
+</div>
+</div>
+</div>
+<!-- Project 5 (Full Width Panoramic) -->
+<div class="md:col-span-12 row-span-1 group cursor-pointer border-[3px] border-true-black [box-shadow:6px_6px_0px_0px_#000000] relative bg-true-black flex flex-col md:flex-row mt-12 active:translate-x-[6px] active:translate-y-[6px] active:[box-shadow:0px_0px_0px_0px_#000000]">
+<div class="absolute top-4 left-4 z-10 bg-primary-container border-[3px] border-true-black px-3 py-1 [box-shadow:4px_4px_0px_0px_#000000]">
+<span class="font-label-mono text-label-mono text-paper-white uppercase">PACKAGING</span>
+</div>
+<div class="absolute top-4 right-4 z-10 bg-paper-white border-[3px] border-true-black px-2 py-1">
+<span class="font-headline-md text-headline-md text-true-black">05</span>
+</div>
+<div class="md:w-2/3 h-full overflow-hidden border-b-[3px] md:border-b-0 md:border-r-[3px] border-true-black">
+<img alt="Project 5" class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500" data-alt="A series of rugged packaging boxes arranged in a staggered, uneven stack. The boxes are wrapped in white paper with massive, bold black numbers printed on the sides and sealed with thick red tape. The scene is captured in a stark, bright environment with extreme high contrast, creating flat, blocky shadows that give the image a graphic, poster-like quality." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAmai_n_ZLd1IfGQwiIpN8xts9UTY5eg9TuKGjx_C_vsJk_ZohMYBHZSAGi12ZDJRfHpZFUnddUmSgQzUx6wkOiwoiW_uC4mOZq-cwAfNt-NzVkZbxb_BQe357FXUfeEa5VI-GnVOO4iT4iPUt8QyfTY594h-ebAgddnYjg7Iy2ld-rTA-viNG85_C3ISHeCy4__aA2bKzHxU7izOeuyLVf6jlPMYDyzc16u8_0mjWaxfZzMVI-WxWwN_n_4TC3q7cjqSPQCMXbX-E"/>
+</div>
+<div class="md:w-1/3 bg-secondary-container p-8 flex flex-col justify-center">
+<h3 class="font-headline-lg text-headline-lg text-true-black leading-tight mb-4">LOGISTICS<br/>REIMAGINED</h3>
+<p class="font-body-md text-body-md text-true-black border-l-[3px] border-true-black pl-4">Raw functional packaging designed for impact and durability. No soft corners.</p>
+<button class="mt-8 self-start bg-true-black text-paper-white font-label-mono text-label-mono px-6 py-3 border-[3px] border-true-black hover:bg-primary-container transition-colors">
+                            VIEW CASE STUDY
+                        </button>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Footer -->
+<footer class="bg-true-black dark:bg-deep-black text-paper-white font-body-md text-body-md uppercase w-full mt-section-padding border-t-[3px] border-true-black">
+<div class="flex flex-col md:flex-row justify-between items-start px-gutter py-12 max-w-container-max mx-auto">
+<div class="mb-8 md:mb-0">
+<div class="font-headline-lg text-headline-lg text-primary mb-4 border-[3px] border-primary inline-block px-4 py-2 bg-true-black [box-shadow:6px_6px_0px_0px_#cc0000]">
+                    MAVEN FORGE
+                </div>
+<p class="text-paper-white/70 mt-4">©2024 MAVEN FORGE. ALL RIGHTS RESERVED.</p>
+</div>
+<div class="flex flex-col md:flex-row gap-8 md:gap-16">
+<div class="flex flex-col space-y-4">
+<span class="font-headline-md text-headline-md text-secondary-container border-b-[3px] border-secondary-container pb-1 inline-block">SOCIAL</span>
+<a class="text-paper-white/70 hover:text-paper-white hover:text-primary-fixed-dim transition-colors cursor-pointer hover:translate-x-[2px] inline-block" href="#">INSTAGRAM</a>
+<a class="text-paper-white/70 hover:text-paper-white hover:text-primary-fixed-dim transition-colors cursor-pointer hover:translate-x-[2px] inline-block" href="#">TWITTER</a>
+<a class="text-paper-white/70 hover:text-paper-white hover:text-primary-fixed-dim transition-colors cursor-pointer hover:translate-x-[2px] inline-block" href="#">LINKEDIN</a>
+</div>
+<div class="flex flex-col space-y-4">
+<span class="font-headline-md text-headline-md text-secondary-container border-b-[3px] border-secondary-container pb-1 inline-block">LEGAL</span>
+<a class="text-paper-white/70 hover:text-paper-white hover:text-primary-fixed-dim transition-colors cursor-pointer hover:translate-x-[2px] inline-block" href="#">PRIVACY</a>
+<a class="text-paper-white/70 hover:text-paper-white hover:text-primary-fixed-dim transition-colors cursor-pointer hover:translate-x-[2px] inline-block" href="#">TERMS</a>
+</div>
+</div>
+</div>
+</footer>
+</body></html>

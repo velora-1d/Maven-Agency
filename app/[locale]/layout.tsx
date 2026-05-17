@@ -4,6 +4,7 @@ import { PageViewTracker } from "@/components/analytics/page-view-tracker";
 import { Footer } from "@/components/site/footer";
 import { SiteHeader } from "@/components/site/site-header";
 import { assertLocale, getUiCopy, locales } from "@/lib/i18n";
+import { getPublicSiteData } from "@/lib/store";
 
 type LocaleLayoutProps = {
   children: React.ReactNode;
@@ -36,13 +37,14 @@ export default async function LocaleLayout({
   const { locale: rawLocale } = await params;
   const locale = assertLocale(rawLocale);
   const copy = getUiCopy(locale);
+  const data = await getPublicSiteData();
 
   return (
-    <div className="min-h-screen bg-paper text-ink">
+    <div className="min-h-screen bg-surface font-body text-on-surface">
       <PageViewTracker locale={locale} />
       <SiteHeader locale={locale} nav={copy.nav} />
       {children}
-      <Footer locale={locale} />
+      <Footer locale={locale} settings={data.settings} />
     </div>
   );
 }

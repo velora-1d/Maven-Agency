@@ -1,6 +1,8 @@
 import "server-only";
 
 import { randomUUID } from "node:crypto";
+import fs from "node:fs";
+import path from "node:path";
 
 import { hashSync } from "bcryptjs";
 import { and, asc, desc, eq } from "drizzle-orm";
@@ -47,6 +49,31 @@ declare global {
   var __mavenDbSeedPromise: Promise<void> | undefined;
 }
 
+export function getEnvValue(key: string, fallback: string): string {
+  try {
+    const envPath = path.resolve(process.cwd(), ".env");
+    if (fs.existsSync(envPath)) {
+      const content = fs.readFileSync(envPath, "utf-8");
+      const lines = content.split("\n");
+      for (const line of lines) {
+        const trimmed = line.trim();
+        if (trimmed.startsWith(`${key}=`)) {
+          let val = trimmed.slice(key.length + 1).trim();
+          if (val.startsWith('"') && val.endsWith('"')) {
+            val = val.slice(1, -1);
+          } else if (val.startsWith("'") && val.endsWith("'")) {
+            val = val.slice(1, -1);
+          }
+          return val;
+        }
+      }
+    }
+  } catch (err) {
+    // ignore
+  }
+  return process.env[key] ?? fallback;
+}
+
 function getDatabase() {
   const db = getDb();
 
@@ -55,6 +82,22 @@ function getDatabase() {
   }
 
   return db;
+}
+
+export function isRecoverableDbError(error: unknown) {
+  if (!(error instanceof Error)) {
+    return false;
+  }
+
+  const message = error.message.toLowerCase();
+
+  return (
+    message.includes("fetch failed") ||
+    message.includes("error connecting to database") ||
+    message.includes("connection") ||
+    message.includes("timeout") ||
+    message.includes("socket")
+  );
 }
 
 function toServiceItem(row: typeof services.$inferSelect): ServiceItem {
@@ -240,26 +283,29 @@ function toSettings(row: typeof siteSettings.$inferSelect): SiteSettings {
 async function seedCatalogTables(items: CatalogItem[]) {
   const db = getDatabase();
 
-  await db.insert(catalogItems).values(
-    items.map((item) => ({
-      id: item.id,
-      slug: item.slug,
-      nameId: item.name.id,
-      nameEn: item.name.en,
-      descriptionId: item.description.id,
-      descriptionEn: item.description.en,
-      categoryId: item.category.id,
-      categoryEn: item.category.en,
-      priceFrom: item.priceFrom,
-      priceTo: item.priceTo,
-      priceLabelId: item.priceLabel.id,
-      priceLabelEn: item.priceLabel.en,
-      isPriceHidden: item.isPriceHidden,
-      ctaUrl: item.ctaUrl,
-      sortOrder: item.sortOrder,
-      isActive: item.isActive
-    }))
-  );
+  await db
+    .insert(catalogItems)
+    .values(
+      items.map((item) => ({
+        id: item.id,
+        slug: item.slug,
+        nameId: item.name.id,
+        nameEn: item.name.en,
+        descriptionId: item.description.id,
+        descriptionEn: item.description.en,
+        categoryId: item.category.id,
+        categoryEn: item.category.en,
+        priceFrom: item.priceFrom,
+        priceTo: item.priceTo,
+        priceLabelId: item.priceLabel.id,
+        priceLabelEn: item.priceLabel.en,
+        isPriceHidden: item.isPriceHidden,
+        ctaUrl: item.ctaUrl,
+        sortOrder: item.sortOrder,
+        isActive: item.isActive
+      }))
+    )
+    .onConflictDoNothing();
 
   const featureValues = items.flatMap((item) =>
     item.features.map((feature, index) => ({
@@ -281,94 +327,105 @@ async function seedCatalogTables(items: CatalogItem[]) {
   );
 
   if (featureValues.length) {
-    await db.insert(catalogItemFeatures).values(featureValues);
+    await db.insert(catalogItemFeatures).values(featureValues).onConflictDoNothing();
   }
 
   if (technologyValues.length) {
-    await db.insert(catalogItemTechnologies).values(technologyValues);
+    await db
+      .insert(catalogItemTechnologies)
+      .values(technologyValues)
+      .onConflictDoNothing();
   }
 }
 
 export async function ensureDatabaseSeeded() {
-  if (global.__mavenDbSeedPromise) {
-    return global.__mavenDbSeedPromise;
-  }
-
   global.__mavenDbSeedPromise = (async () => {
     const db = getDatabase();
     const existingService = await db.query.services.findFirst();
 
     if (!existingService) {
-      await db.insert(services).values(
-        seedServices.map((item) => ({
-          id: item.id,
-          slug: item.slug,
-          titleId: item.title.id,
-          titleEn: item.title.en,
-          descriptionId: item.description.id,
-          descriptionEn: item.description.en,
-          icon: item.icon,
-          blockColor: item.blockColor,
-          sortOrder: item.sortOrder,
-          isActive: item.isActive
-        }))
-      );
+      await db
+        .insert(services)
+        .values(
+          seedServices.map((item) => ({
+            id: item.id,
+            slug: item.slug,
+            titleId: item.title.id,
+            titleEn: item.title.en,
+            descriptionId: item.description.id,
+            descriptionEn: item.description.en,
+            icon: item.icon,
+            blockColor: item.blockColor,
+            sortOrder: item.sortOrder,
+            isActive: item.isActive
+          }))
+        )
+        .onConflictDoNothing();
     }
 
     const existingPortfolio = await db.query.portfolioProjects.findFirst();
     if (!existingPortfolio) {
-      await db.insert(portfolioProjects).values(
-        seedPortfolio.map((item) => ({
-          id: item.id,
-          slug: item.slug,
-          titleId: item.title.id,
-          titleEn: item.title.en,
-          summaryId: item.summary.id,
-          summaryEn: item.summary.en,
-          categoryId: item.category.id,
-          categoryEn: item.category.en,
-          highlightId: item.highlight.id,
-          highlightEn: item.highlight.en,
-          image: item.image,
-          techStack: item.techStack,
-          sortOrder: item.sortOrder,
-          isActive: item.isActive
-        }))
-      );
+      await db
+        .insert(portfolioProjects)
+        .values(
+          seedPortfolio.map((item) => ({
+            id: item.id,
+            slug: item.slug,
+            titleId: item.title.id,
+            titleEn: item.title.en,
+            summaryId: item.summary.id,
+            summaryEn: item.summary.en,
+            categoryId: item.category.id,
+            categoryEn: item.category.en,
+            highlightId: item.highlight.id,
+            highlightEn: item.highlight.en,
+            image: item.image,
+            techStack: item.techStack,
+            sortOrder: item.sortOrder,
+            isActive: item.isActive
+          }))
+        )
+        .onConflictDoNothing();
     }
 
     const existingTeam = await db.query.teamMembers.findFirst();
     if (!existingTeam) {
-      await db.insert(teamMembers).values(
-        seedTeam.map((item) => ({
-          id: item.id,
-          name: item.name,
-          roleId: item.role.id,
-          roleEn: item.role.en,
-          bioId: item.bio.id,
-          bioEn: item.bio.en,
-          avatar: item.avatar,
-          socials: item.socials,
-          sortOrder: item.sortOrder,
-          isActive: item.isActive
-        }))
-      );
+      await db
+        .insert(teamMembers)
+        .values(
+          seedTeam.map((item) => ({
+            id: item.id,
+            name: item.name,
+            roleId: item.role.id,
+            roleEn: item.role.en,
+            bioId: item.bio.id,
+            bioEn: item.bio.en,
+            avatar: item.avatar,
+            socials: item.socials,
+            sortOrder: item.sortOrder,
+            isActive: item.isActive
+          }))
+        )
+        .onConflictDoNothing();
     }
 
     const existingTestimonial = await db.query.testimonials.findFirst();
     if (!existingTestimonial) {
-      await db.insert(testimonials).values(
-        seedTestimonials.map((item) => ({
-          id: item.id,
-          clientName: item.clientName,
-          company: item.company,
-          quoteId: item.quote.id,
-          quoteEn: item.quote.en,
-          rating: item.rating,
-          sortOrder: item.sortOrder,
-          isActive: item.isActive
-        }))
-      );
+      await db
+        .insert(testimonials)
+        .values(
+          seedTestimonials.map((item) => ({
+            id: item.id,
+            clientName: item.clientName,
+            company: item.company,
+            quoteId: item.quote.id,
+            quoteEn: item.quote.en,
+            rating: item.rating,
+            sortOrder: item.sortOrder,
+            isActive: item.isActive
+          }))
+        )
+        .onConflictDoNothing();
     }
 
     const existingCatalog = await db.query.catalogItems.findFirst();
@@ -378,64 +435,101 @@ export async function ensureDatabaseSeeded() {
 
     const existingSettings = await db.query.siteSettings.findFirst();
     if (!existingSettings) {
-      await db.insert(siteSettings).values({
-        id: "global",
-        heroBadgeId: seedSettings.heroBadge.id,
-        heroBadgeEn: seedSettings.heroBadge.en,
-        heroHeadlineId: seedSettings.heroHeadline.id,
-        heroHeadlineEn: seedSettings.heroHeadline.en,
-        heroSubheadlineId: seedSettings.heroSubheadline.id,
-        heroSubheadlineEn: seedSettings.heroSubheadline.en,
-        heroCtaLabelId: seedSettings.heroCtaLabel.id,
-        heroCtaLabelEn: seedSettings.heroCtaLabel.en,
-        heroCtaHref: seedSettings.heroCtaHref,
-        aboutHeadlineId: seedSettings.aboutHeadline.id,
-        aboutHeadlineEn: seedSettings.aboutHeadline.en,
-        aboutStoryId: seedSettings.aboutStory.id,
-        aboutStoryEn: seedSettings.aboutStory.en,
-        missionId: seedSettings.mission.id,
-        missionEn: seedSettings.mission.en,
-        visionId: seedSettings.vision.id,
-        visionEn: seedSettings.vision.en,
-        stats: seedSettings.stats,
-        whyUs: seedSettings.whyUs,
-        contactHeadlineId: seedSettings.contactHeadline.id,
-        contactHeadlineEn: seedSettings.contactHeadline.en,
-        contactCopyId: seedSettings.contactCopy.id,
-        contactCopyEn: seedSettings.contactCopy.en,
-        whatsapp: seedSettings.whatsapp,
-        phone: seedSettings.phone,
-        email: seedSettings.email,
-        addressId: seedSettings.address.id,
-        addressEn: seedSettings.address.en,
-        socials: seedSettings.socials
-      });
+      await db
+        .insert(siteSettings)
+        .values({
+          id: "global",
+          heroBadgeId: seedSettings.heroBadge.id,
+          heroBadgeEn: seedSettings.heroBadge.en,
+          heroHeadlineId: seedSettings.heroHeadline.id,
+          heroHeadlineEn: seedSettings.heroHeadline.en,
+          heroSubheadlineId: seedSettings.heroSubheadline.id,
+          heroSubheadlineEn: seedSettings.heroSubheadline.en,
+          heroCtaLabelId: seedSettings.heroCtaLabel.id,
+          heroCtaLabelEn: seedSettings.heroCtaLabel.en,
+          heroCtaHref: seedSettings.heroCtaHref,
+          aboutHeadlineId: seedSettings.aboutHeadline.id,
+          aboutHeadlineEn: seedSettings.aboutHeadline.en,
+          aboutStoryId: seedSettings.aboutStory.id,
+          aboutStoryEn: seedSettings.aboutStory.en,
+          missionId: seedSettings.mission.id,
+          missionEn: seedSettings.mission.en,
+          visionId: seedSettings.vision.id,
+          visionEn: seedSettings.vision.en,
+          stats: seedSettings.stats,
+          whyUs: seedSettings.whyUs,
+          contactHeadlineId: seedSettings.contactHeadline.id,
+          contactHeadlineEn: seedSettings.contactHeadline.en,
+          contactCopyId: seedSettings.contactCopy.id,
+          contactCopyEn: seedSettings.contactCopy.en,
+          whatsapp: seedSettings.whatsapp,
+          phone: seedSettings.phone,
+          email: seedSettings.email,
+          addressId: seedSettings.address.id,
+          addressEn: seedSettings.address.en,
+          socials: seedSettings.socials
+        })
+        .onConflictDoNothing();
     }
 
-    const existingUser = await db.query.users.findFirst({
-      where: eq(users.email, process.env.ADMIN_EMAIL ?? "admin@mavenforge.com")
+    const adminEmail = getEnvValue("ADMIN_EMAIL", "");
+    const adminPasswordHash = hashSync(
+      getEnvValue("ADMIN_PASSWORD", randomUUID()),
+      10
+    );
+
+    const existingUserById = await db.query.users.findFirst({
+      where: eq(users.id, "internal-admin")
     });
-    if (!existingUser) {
-      await db.insert(users).values({
-        id: "internal-admin",
-        email: process.env.ADMIN_EMAIL ?? "admin@mavenforge.com",
-        passwordHash: hashSync(process.env.ADMIN_PASSWORD ?? "forge-admin", 10),
-        role: "admin"
-      });
+    const existingUserByEmail = await db.query.users.findFirst({
+      where: eq(users.email, adminEmail)
+    });
+
+    if (existingUserById) {
+      await db
+        .update(users)
+        .set({
+          email: adminEmail,
+          passwordHash: adminPasswordHash,
+          role: "admin"
+        })
+        .where(eq(users.id, existingUserById.id));
+    } else if (existingUserByEmail) {
+      await db
+        .update(users)
+        .set({
+          id: "internal-admin",
+          passwordHash: adminPasswordHash,
+          role: "admin"
+        })
+        .where(eq(users.email, existingUserByEmail.email));
+    } else {
+      await db
+        .insert(users)
+        .values({
+          id: "internal-admin",
+          email: adminEmail,
+          passwordHash: adminPasswordHash,
+          role: "admin"
+        })
+        .onConflictDoNothing();
     }
 
     const existingPageView = await db.query.pageViews.findFirst();
     if (!existingPageView) {
-      await db.insert(pageViews).values(
-        seedPageViews.map((view) => ({
-          id: view.id,
-          path: view.path,
-          locale: view.locale,
-          referrer: view.referrer,
-          visitorId: view.visitorId,
-          visitedAt: new Date(view.visitedAt)
-        }))
-      );
+      await db
+        .insert(pageViews)
+        .values(
+          seedPageViews.map((view) => ({
+            id: view.id,
+            path: view.path,
+            locale: view.locale,
+            referrer: view.referrer,
+            visitorId: view.visitorId,
+            visitedAt: new Date(view.visitedAt)
+          }))
+        )
+        .onConflictDoNothing();
     }
   })();
 
@@ -839,7 +933,10 @@ export async function updateResourceItemInDb(
   }
 }
 
-export async function deleteResourceItemFromDb(resource: AdminResourceKey, id: string) {
+export async function deleteResourceItemFromDb(
+  resource: AdminResourceKey,
+  id: string
+): Promise<{ ok: true }> {
   await ensureDatabaseSeeded();
   const db = getDatabase();
 

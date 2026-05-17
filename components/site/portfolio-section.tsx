@@ -1,72 +1,100 @@
 import { pickLocaleText } from "@/lib/i18n";
 import type { Locale, PortfolioProject } from "@/lib/types";
+import { AnimatedReveal } from "@/components/animated-reveal";
 
 type PortfolioSectionProps = {
   locale: Locale;
   items: PortfolioProject[];
-  labels: {
-    featuredWork: string;
-  };
+  labels: { featuredWork: string; noData: string };
 };
 
-export function PortfolioSection({
-  locale,
-  items,
-  labels
-}: PortfolioSectionProps) {
-  return (
-    <section id="portfolio" className="section-shell">
-      <div className="mb-8">
-        <span className="section-kicker bg-ink text-paper">{labels.featuredWork}</span>
-        <h2 className="mt-5 max-w-4xl font-[family:var(--font-display)] text-5xl uppercase leading-none sm:text-6xl">
-          Case studies with editorial framing and product logic.
-        </h2>
-      </div>
+const CARD_STYLES = [
+  { bg: "bg-paper-white", accent: "bg-primary-container text-paper-white", num: "text-surface-dim" },
+  { bg: "bg-true-black", accent: "bg-secondary-container text-true-black", num: "text-inverse-surface" },
+  { bg: "bg-surface-container", accent: "bg-primary-container text-paper-white", num: "text-surface-dim" },
+];
 
-      <div className="grid gap-5 lg:grid-cols-[1.1fr_0.9fr]">
-        {items.map((item, index) => (
-          <article
-            key={item.id}
-            className="brutal-card overflow-hidden bg-white"
-          >
-            <div
-              className="grid min-h-[220px] place-items-center border-b-[3px] border-black p-8 text-center"
-              style={{
-                background:
-                  index % 3 === 0
-                    ? "linear-gradient(135deg, #FF6B00 0%, #FFF6E8 100%)"
-                    : index % 3 === 1
-                      ? "linear-gradient(135deg, #98D8FF 0%, #FFFFFF 100%)"
-                      : "linear-gradient(135deg, #A5FF8B 0%, #FFFFFF 100%)"
-              }}
-            >
-              <div>
-                <p className="text-xs uppercase tracking-[0.3em]">
-                  {pickLocaleText(locale, item.category)}
-                </p>
-                <h3 className="mt-4 font-[family:var(--font-display)] text-4xl uppercase leading-none">
-                  {pickLocaleText(locale, item.title)}
-                </h3>
-              </div>
+export function PortfolioSection({ locale, items, labels }: PortfolioSectionProps) {
+  return (
+    <section id="portfolio" className="section-border bg-surface-container-high">
+      <div className="page-container py-section-padding">
+        {/* Header */}
+        <AnimatedReveal direction="up" className="mb-16 flex flex-col justify-between gap-6 border-b-[3px] border-true-black pb-12 md:flex-row md:items-end">
+          <h2 className="font-display text-display-2xl uppercase leading-none text-true-black">
+            {labels.featuredWork}
+          </h2>
+          <div className="flex items-center gap-4">
+            <div className="border-[3px] border-true-black bg-secondary-container px-4 py-2 font-body text-label-mono uppercase text-paper-white neo-shadow">
+              {items.length} PROJECTS
             </div>
-            <div className="p-6">
-              <p className="text-sm leading-7">{pickLocaleText(locale, item.summary)}</p>
-              <p className="mt-4 rounded-2xl border-[3px] border-black bg-paper px-4 py-3 text-xs uppercase tracking-[0.2em]">
-                {pickLocaleText(locale, item.highlight)}
-              </p>
-              <div className="mt-4 flex flex-wrap gap-2">
-                {item.techStack.map((stack) => (
-                  <span
-                    key={stack}
-                    className="rounded-full border-[3px] border-black bg-white px-3 py-2 text-[11px] uppercase tracking-[0.2em]"
-                  >
-                    {stack}
+          </div>
+        </AnimatedReveal>
+
+        {/* Portfolio grid */}
+        <div className="grid grid-cols-1 gap-12 md:grid-cols-12">
+          {items.slice(0, 3).map((project, i) => {
+            const style = CARD_STYLES[i % CARD_STYLES.length];
+            return (
+              <AnimatedReveal
+                key={project.id}
+                direction="up"
+                delay={i * 150}
+                className={`group relative overflow-hidden border-[3px] border-true-black neo-shadow transition-transform duration-300 hover:-translate-y-1 hover:translate-x-1 ${style.bg} ${
+                  i === 0 ? "md:col-span-7" : i === 1 ? "md:col-span-5 md:mt-12" : "md:col-span-12"
+                }`}
+              >
+                {/* Image */}
+                <div className={`relative overflow-hidden border-b-[3px] border-true-black ${i === 2 ? "h-96" : "h-72"}`}>
+                  <img
+                    src={
+                      project.image ||
+                      `https://images.unsplash.com/photo-${i === 0 ? "1481487196290-c152efe083f5" : i === 1 ? "1563986768609-322da13575f3" : "1467232004584-a241de8bcf5d"}?w=900&q=80`
+                    }
+                    alt={pickLocaleText(locale, project.title)}
+                    className="h-full w-full object-cover grayscale transition-all duration-500 group-hover:scale-105 group-hover:grayscale-0"
+                  />
+                  <div className="absolute inset-0 bg-true-black/20 transition-opacity duration-300 group-hover:opacity-0" />
+                </div>
+
+                {/* Details */}
+                <div className="flex flex-col justify-between p-8 md:flex-row md:items-end">
+                  <div>
+                    <div className={`mb-4 inline-block border-[3px] border-true-black px-3 py-1 font-body text-label-mono uppercase neo-shadow-sm ${style.accent}`}>
+                      {pickLocaleText(locale, project.category)}
+                    </div>
+                    <h3 className={`mb-2 font-display text-headline-md uppercase ${i === 1 ? "text-paper-white" : "text-true-black"}`}>
+                      {pickLocaleText(locale, project.title)}
+                    </h3>
+                    <p className={`font-body text-body-md ${i === 1 ? "text-paper-white/80" : "text-on-surface-variant"}`}>
+                      {pickLocaleText(locale, project.summary)}
+                    </p>
+                  </div>
+                  <span className={`mt-6 font-display text-display-2xl leading-none ${style.num} md:mt-0`}>
+                    {String(i + 1).padStart(2, "0")}
                   </span>
-                ))}
-              </div>
-            </div>
-          </article>
-        ))}
+                </div>
+
+                {/* Tech tags */}
+                {project.techStack?.length > 0 && (
+                  <div className="flex flex-wrap gap-2 border-t-[3px] border-true-black px-8 pb-6 pt-4">
+                    {project.techStack.slice(0, 4).map((tech) => (
+                      <span
+                        key={tech}
+                        className={`border-[3px] border-true-black px-3 py-1 font-body text-label-mono uppercase ${
+                          i === 1
+                            ? "bg-inverse-surface text-paper-white"
+                            : "bg-paper-white text-true-black"
+                        }`}
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                )}
+              </AnimatedReveal>
+            );
+          })}
+        </div>
       </div>
     </section>
   );

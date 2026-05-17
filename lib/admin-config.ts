@@ -70,12 +70,12 @@ function serializeSocialLines(
 }
 
 export const resourceLabels: Record<AdminResourceKey | "settings", string> = {
-  services: "Services Manager",
-  portfolio: "Portfolio Manager",
-  team: "Team Manager",
-  testimonials: "Testimonial Manager",
-  catalog: "Catalog Manager",
-  settings: "Site Settings"
+  services: "Services",
+  portfolio: "Portfolio",
+  team: "Team",
+  testimonials: "Testimonials",
+  catalog: "Catalog",
+  settings: "Settings"
 };
 
 export const resourceConfigs: Record<

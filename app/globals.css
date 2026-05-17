@@ -2,15 +2,17 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ============================
+   MAVEN FORGE — Global Styles
+   Neo-Brutalism Design System
+   ============================ */
+
 :root {
-  --paper: #fff6e8;
-  --ink: #0a0a0a;
-  --signal: #cc0000;
-  --blaze: #ff6b00;
-  --cream: #fffdf8;
-  --mint: #a5ff8b;
-  --sky: #98d8ff;
-  --grid-size: 24px;
+  --primary-container: #cc0000;
+  --secondary-container: #fe6b00;
+  --true-black: #000000;
+  --paper-white: #ffffff;
+  --surface: #f9f9f9;
 }
 
 * {
@@ -19,16 +21,31 @@
 
 html {
   scroll-behavior: smooth;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+html::-webkit-scrollbar {
+  display: none;
 }
 
 body {
   margin: 0;
-  background:
-    radial-gradient(circle at top left, rgba(255, 107, 0, 0.16), transparent 28%),
-    radial-gradient(circle at bottom right, rgba(204, 0, 0, 0.18), transparent 24%),
-    var(--paper);
-  background-size: cover;
-  color: var(--ink);
+  background-color: var(--surface);
+  color: #1a1c1c;
+  font-family: var(--font-body), monospace;
+  overflow-x: hidden;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+body::-webkit-scrollbar {
+  display: none;
+}
+
+::selection {
+  background: var(--primary-container);
+  color: var(--paper-white);
 }
 
 a {
@@ -43,93 +60,111 @@ select {
   font: inherit;
 }
 
-::selection {
-  background: var(--blaze);
-  color: var(--ink);
+/* ============================
+   Utility Classes
+   ============================ */
+
+/* Hard shadow — the signature neo-brutal effect */
+.neo-shadow {
+  box-shadow: 6px 6px 0px 0px #000000;
 }
 
-.grid-paper {
-  background-image:
-    linear-gradient(to right, rgba(0, 0, 0, 0.06) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(0, 0, 0, 0.06) 1px, transparent 1px);
-  background-size: var(--grid-size) var(--grid-size);
+.neo-shadow-sm {
+  box-shadow: 4px 4px 0px 0px #000000;
 }
 
-.noise {
-  position: relative;
+/* Hover lift + shadow (button/card interaction) */
+.neo-hover {
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.neo-hover:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0px 0px #000000;
+}
+.neo-hover:active {
+  transform: translate(6px, 6px);
+  box-shadow: 0px 0px 0px 0px #000000;
 }
 
-.noise::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  opacity: 0.08;
-  background-image:
-    radial-gradient(circle at 20% 20%, rgba(0, 0, 0, 0.4) 0 1px, transparent 1px),
-    radial-gradient(circle at 80% 60%, rgba(0, 0, 0, 0.4) 0 1px, transparent 1px),
-    radial-gradient(circle at 50% 80%, rgba(0, 0, 0, 0.4) 0 1px, transparent 1px);
-  background-size: 16px 16px;
+/* Nav link hover effect */
+.nav-link {
+  transition: transform 0.1s ease;
+  font-family: var(--font-display), sans-serif;
+  font-size: 32px;
+  line-height: 32px;
+  text-transform: uppercase;
+  color: #1a1c1c;
+}
+.nav-link:hover {
+  color: #9e0000;
+  transform: translate(2px, 2px);
+}
+.nav-link:active {
+  transform: translate(4px, 4px);
+}
+.nav-link.active {
+  color: #a04100;
+  text-decoration: underline;
+  text-decoration-thickness: 3px;
+  text-underline-offset: 8px;
 }
 
-.brutal-card {
-  border: 3px solid #000;
-  box-shadow: 8px 8px 0 #000;
-  border-radius: 24px;
+/* Page wrapper */
+.page-container {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding-left: 24px;
+  padding-right: 24px;
 }
 
-.section-shell {
-  @apply mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-24;
+/* Neo input */
+.neo-input {
+  border: 3px solid #000000;
+  background: #ffffff;
+  font-family: var(--font-body), monospace;
+  font-size: 14px;
+  font-weight: 700;
+  outline: none;
+  transition: box-shadow 0.15s ease;
+}
+.neo-input:focus {
+  box-shadow: 6px 6px 0px 0px #fe6b00;
 }
 
-.section-kicker {
-  @apply inline-flex items-center rounded-full border-[3px] border-black bg-white px-4 py-2 text-xs uppercase tracking-[0.3em];
+/* Section separator */
+.section-border {
+  border-bottom: 3px solid #000000;
 }
 
-.editable-field {
-  @apply w-full rounded-2xl border-[3px] border-black bg-white px-4 py-3 text-sm shadow-brutalSm outline-none transition focus:-translate-y-0.5 focus:translate-x-0.5 focus:shadow-none;
-}
-
-.editor-label {
-  @apply mb-2 block text-xs font-semibold uppercase tracking-[0.2em];
-}
-
-.dash-panel {
-  @apply rounded-[28px] border-[3px] border-black bg-white p-6 shadow-brutal;
-}
-
-.marquee {
+/* Scrolling ticker marquee */
+.marquee-wrap {
   overflow: hidden;
   white-space: nowrap;
 }
-
-.marquee span {
+.marquee-inner {
   display: inline-block;
   padding-left: 100%;
-  animation: marquee 18s linear infinite;
+  animation: marquee 22s linear infinite;
 }
-
 @keyframes marquee {
-  from {
-    transform: translateX(0);
-  }
-
-  to {
-    transform: translateX(-100%);
-  }
+  from { transform: translateX(0); }
+  to   { transform: translateX(-100%); }
 }
 
+/* Kinetic float */
 @keyframes drift {
-  0%,
-  100% {
-    transform: translate3d(0, 0, 0) rotate(0deg);
-  }
-
-  50% {
-    transform: translate3d(0, -10px, 0) rotate(-2deg);
-  }
+  0%, 100% { transform: translate3d(0, 0, 0) rotate(0deg); }
+  50%       { transform: translate3d(0, -8px, 0) rotate(-1deg); }
 }
-
 .floaty {
   animation: drift 6s ease-in-out infinite;
+}
+
+/* Hide scrollbar utility */
+.scrollbar-hide {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
 }

@@ -7,6 +7,7 @@ import {
   deleteResourceItemFromDb,
   getDashboardMetricsFromDb,
   getPublicSiteDataFromDb,
+  isRecoverableDbError,
   getSettingsFromDb,
   listResourceFromDb,
   recordPageViewInDb,
@@ -77,11 +78,29 @@ const useDatabase = Boolean(process.env.DATABASE_URL);
 
 export const storageMode = useDatabase ? "database-backed" : "seed-memory";
 
-export async function getPublicSiteData(): Promise<PublicSiteData> {
-  if (useDatabase) {
-    return getPublicSiteDataFromDb();
-  }
+function logDbFallback(error: unknown, action: string) {
+  const message = error instanceof Error ? error.message : String(error);
+  console.warn(`[maven-forge] Falling back to seed-memory for ${action}: ${message}`);
+}
 
+async function tryDbOrFallback<T>(
+  action: string,
+  dbAction: () => Promise<T>,
+  fallbackAction: () => Promise<T> | T
+) {
+  try {
+    return await dbAction();
+  } catch (error) {
+    if (!isRecoverableDbError(error)) {
+      throw error;
+    }
+
+    logDbFallback(error, action);
+    return await fallbackAction();
+  }
+}
+
+async function getSeedPublicSiteData(): Promise<PublicSiteData> {
   const store = getStore();
 
   return {
@@ -104,11 +123,7 @@ export async function getPublicSiteData(): Promise<PublicSiteData> {
   };
 }
 
-export async function listResource(resource: AdminResourceKey) {
-  if (useDatabase) {
-    return listResourceFromDb(resource);
-  }
-
+async function listSeedResource(resource: AdminResourceKey) {
   const store = getStore();
   return structuredClone(store[resource]).sort(
     (
@@ -118,50 +133,34 @@ export async function listResource(resource: AdminResourceKey) {
   );
 }
 
-export async function getSettings() {
-  if (useDatabase) {
-    return getSettingsFromDb();
-  }
-
+async function getSeedSettings() {
   return structuredClone(getStore().settings);
 }
 
-export async function saveSettings(settings: SiteSettings) {
-  if (useDatabase) {
-    return saveSettingsToDb(settings);
-  }
-
+async function saveSeedSettings(settings: SiteSettings) {
   getStore().settings = structuredClone(settings);
-  return getSettings();
+  return getSeedSettings();
 }
 
-export async function createResourceItem<T extends AdminResourceKey>(
+async function createSeedResourceItem<T extends AdminResourceKey>(
   resource: T,
   item: ResourceInput<T>
-) {
-  if (useDatabase) {
-    return createResourceItemInDb(resource, item);
-  }
-
+): Promise<AppStore[T][number]> {
   const store = getStore();
   const nextItem = {
     ...item,
     id: item.id || randomUUID()
-  };
+  } as AppStore[T][number];
 
   store[resource] = [...store[resource], nextItem] as AppStore[T];
   return nextItem;
 }
 
-export async function updateResourceItem<T extends AdminResourceKey>(
+async function updateSeedResourceItem<T extends AdminResourceKey>(
   resource: T,
   id: string,
   item: ResourceInput<T>
-) {
-  if (useDatabase) {
-    return updateResourceItemInDb(resource, id, item);
-  }
-
+): Promise<AppStore[T][number] | undefined> {
   const store = getStore();
   store[resource] = store[resource].map((entry) =>
     entry.id === id ? { ...entry, ...item, id } : entry
@@ -169,24 +168,16 @@ export async function updateResourceItem<T extends AdminResourceKey>(
   return structuredClone(store[resource].find((entry) => entry.id === id));
 }
 
-export async function deleteResourceItem<T extends AdminResourceKey>(
+async function deleteSeedResourceItem<T extends AdminResourceKey>(
   resource: T,
   id: string
-) {
-  if (useDatabase) {
-    return deleteResourceItemFromDb(resource, id);
-  }
-
+): Promise<{ ok: true }> {
   const store = getStore();
   store[resource] = store[resource].filter((entry) => entry.id !== id) as AppStore[T];
   return { ok: true };
 }
 
-export async function recordPageView(view: Omit<PageView, "id" | "visitedAt">) {
-  if (useDatabase) {
-    return recordPageViewInDb(view);
-  }
-
+async function recordSeedPageView(view: Omit<PageView, "id" | "visitedAt">) {
   const store = getStore();
   store.pageViews.unshift({
     id: randomUUID(),
@@ -195,11 +186,7 @@ export async function recordPageView(view: Omit<PageView, "id" | "visitedAt">) {
   });
 }
 
-export async function getDashboardMetrics(): Promise<DashboardMetrics> {
-  if (useDatabase) {
-    return getDashboardMetricsFromDb();
-  }
-
+async function getSeedDashboardMetrics(): Promise<DashboardMetrics> {
   const store = getStore();
   const pageMap = new Map<string, number>();
   const referrerMap = new Map<string, number>();
@@ -234,4 +221,117 @@ export async function getDashboardMetrics(): Promise<DashboardMetrics> {
       { label: "Catalog", total: store.catalog.filter((item) => item.isActive).length }
     ]
   };
+}
+
+export async function getPublicSiteData(): Promise<PublicSiteData> {
+  if (useDatabase) {
+    return tryDbOrFallback("public site data", getPublicSiteDataFromDb, getSeedPublicSiteData);
+  }
+
+  return getSeedPublicSiteData();
+}
+
+export async function listResource(resource: AdminResourceKey) {
+  if (useDatabase) {
+    return tryDbOrFallback(
+      `${resource} list`,
+      () => listResourceFromDb(resource),
+      () => listSeedResource(resource)
+    );
+  }
+
+  return listSeedResource(resource);
+}
+
+export async function getSettings() {
+  if (useDatabase) {
+    return tryDbOrFallback("settings read", getSettingsFromDb, getSeedSettings);
+  }
+
+  return getSeedSettings();
+}
+
+export async function saveSettings(settings: SiteSettings) {
+  if (useDatabase) {
+    return tryDbOrFallback(
+      "settings save",
+      () => saveSettingsToDb(settings),
+      () => saveSeedSettings(settings)
+    );
+  }
+
+  return saveSeedSettings(settings);
+}
+
+export async function createResourceItem<T extends AdminResourceKey>(
+  resource: T,
+  item: ResourceInput<T>
+): Promise<AppStore[T][number]> {
+  if (useDatabase) {
+    return tryDbOrFallback<AppStore[T][number]>(
+      `${resource} create`,
+      () => createResourceItemInDb(resource, item) as Promise<AppStore[T][number]>,
+      () => createSeedResourceItem(resource, item)
+    );
+  }
+
+  return createSeedResourceItem(resource, item);
+}
+
+export async function updateResourceItem<T extends AdminResourceKey>(
+  resource: T,
+  id: string,
+  item: ResourceInput<T>
+): Promise<AppStore[T][number] | undefined> {
+  if (useDatabase) {
+    return tryDbOrFallback<AppStore[T][number] | undefined>(
+      `${resource} update`,
+      () =>
+        updateResourceItemInDb(resource, id, item) as Promise<
+          AppStore[T][number] | undefined
+        >,
+      () => updateSeedResourceItem(resource, id, item)
+    );
+  }
+
+  return updateSeedResourceItem(resource, id, item);
+}
+
+export async function deleteResourceItem<T extends AdminResourceKey>(
+  resource: T,
+  id: string
+): Promise<{ ok: true }> {
+  if (useDatabase) {
+    return tryDbOrFallback<{ ok: true }>(
+      `${resource} delete`,
+      () => deleteResourceItemFromDb(resource, id),
+      () => deleteSeedResourceItem(resource, id)
+    );
+  }
+
+  return deleteSeedResourceItem(resource, id);
+}
+
+export async function recordPageView(view: Omit<PageView, "id" | "visitedAt">) {
+  if (useDatabase) {
+    return tryDbOrFallback(
+      "page view record",
+      () => recordPageViewInDb(view),
+      () => recordSeedPageView(view)
+    );
+  }
+
+  return recordSeedPageView(view);
+}
+
+export async function getDashboardMetrics(): Promise<DashboardMetrics> {
+  if (useDatabase) {
+    return tryDbOrFallback(
+      "dashboard metrics",
+      getDashboardMetricsFromDb,
+      getSeedDashboardMetrics
+    );
+  }
+
+  return getSeedDashboardMetrics();
 }

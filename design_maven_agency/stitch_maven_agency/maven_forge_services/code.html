@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>MAVEN FORGE - Services</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&amp;family=JetBrains+Mono:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-family: 'Material Symbols Outlined';
+            font-weight: normal;
+            font-style: normal;
+            font-size: 24px;
+            line-height: 1;
+            letter-spacing: normal;
+            text-transform: none;
+            display: inline-block;
+            white-space: nowrap;
+            word-wrap: normal;
+            direction: ltr;
+            -webkit-font-feature-settings: 'liga';
+            -webkit-font-smoothing: antialiased;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary-fixed-dim": "#ffb4a8",
+                        "on-primary": "#ffffff",
+                        "surface-dim": "#dadada",
+                        "on-secondary-fixed": "#351000",
+                        "primary-container": "#cc0000",
+                        "on-tertiary-fixed-variant": "#0039b4",
+                        "on-primary-fixed-variant": "#930000",
+                        "surface-tint": "#c00000",
+                        "true-black": "#000000",
+                        "on-surface": "#1a1c1c",
+                        "inverse-surface": "#2f3131",
+                        "deep-black": "#0A0A0A",
+                        "surface-container": "#eeeeee",
+                        "on-surface-variant": "#5e3f3a",
+                        "outline-variant": "#e8bdb6",
+                        "error-container": "#ffdad6",
+                        "error": "#ba1a1a",
+                        "on-secondary-fixed-variant": "#7a3000",
+                        "inverse-on-surface": "#f0f1f1",
+                        "secondary-fixed": "#ffdbcc",
+                        "surface-container-high": "#e8e8e8",
+                        "tertiary-container": "#0052f9",
+                        "on-tertiary-fixed": "#001551",
+                        "on-background": "#1a1c1c",
+                        "primary-fixed": "#ffdad4",
+                        "inverse-primary": "#ffb4a8",
+                        "primary": "#9e0000",
+                        "on-error": "#ffffff",
+                        "on-secondary-container": "#572000",
+                        "on-primary-fixed": "#410000",
+                        "secondary-container": "#fe6b00",
+                        "outline": "#926e69",
+                        "surface-container-low": "#f3f3f4",
+                        "on-tertiary-container": "#dce1ff",
+                        "secondary": "#a04100",
+                        "surface-variant": "#e2e2e2",
+                        "on-tertiary": "#ffffff",
+                        "background": "#f9f9f9",
+                        "surface-container-highest": "#e2e2e2",
+                        "surface-container-lowest": "#ffffff",
+                        "tertiary-fixed": "#dce1ff",
+                        "tertiary-fixed-dim": "#b7c4ff",
+                        "on-primary-container": "#ffdad4",
+                        "paper-white": "#FFFFFF",
+                        "tertiary": "#003ec2",
+                        "on-error-container": "#93000a",
+                        "on-secondary": "#ffffff",
+                        "secondary-fixed-dim": "#ffb693",
+                        "surface-bright": "#f9f9f9",
+                        "surface": "#f9f9f9"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "container-max": "1440px",
+                        "shadow-offset": "6px",
+                        "section-padding": "80px",
+                        "border-width": "3px",
+                        "gutter": "24px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["JetBrains Mono"],
+                        "body-lg": ["JetBrains Mono"],
+                        "display-2xl": ["Bebas Neue"],
+                        "headline-md": ["Bebas Neue"],
+                        "headline-lg-mobile": ["Bebas Neue"],
+                        "headline-lg": ["Bebas Neue"],
+                        "label-mono": ["JetBrains Mono"]
+                    },
+                    "fontSize": {
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "500" }],
+                        "display-2xl": ["120px", { "lineHeight": "110px", "letterSpacing": "0.02em", "fontWeight": "400" }],
+                        "headline-md": ["32px", { "lineHeight": "32px", "fontWeight": "400" }],
+                        "headline-lg-mobile": ["48px", { "lineHeight": "48px", "fontWeight": "400" }],
+                        "headline-lg": ["64px", { "lineHeight": "64px", "letterSpacing": "0.03em", "fontWeight": "400" }],
+                        "label-mono": ["14px", { "lineHeight": "16px", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-background text-on-background antialiased selection:bg-secondary-container selection:text-true-black overflow-x-hidden">
+<!-- TopNavBar -->
+<nav class="w-full top-0 z-50 sticky border-b-[3px] border-true-black bg-surface">
+<div class="flex justify-between items-center w-full px-gutter py-4 max-w-container-max mx-auto">
+<a class="font-headline-md text-headline-md font-black text-primary tracking-tighter hover:translate-x-[2px] hover:translate-y-[2px] transition-transform active:translate-x-[4px] active:translate-y-[4px]" href="#">
+                MAVEN FORGE
+            </a>
+<div class="hidden md:flex items-center gap-8">
+<a class="font-headline-md text-headline-md text-on-surface hover:text-primary hover:translate-x-[2px] hover:translate-y-[2px] transition-transform active:translate-x-[4px] active:translate-y-[4px]" href="#">HOME</a>
+<a class="font-headline-md text-headline-md text-on-surface hover:text-primary hover:translate-x-[2px] hover:translate-y-[2px] transition-transform active:translate-x-[4px] active:translate-y-[4px]" href="#">ABOUT</a>
+<a class="font-headline-md text-headline-md text-secondary underline decoration-[3px] underline-offset-8 hover:translate-x-[2px] hover:translate-y-[2px] transition-transform active:translate-x-[4px] active:translate-y-[4px]" href="#">SERVICES</a>
+<a class="font-headline-md text-headline-md text-on-surface hover:text-primary hover:translate-x-[2px] hover:translate-y-[2px] transition-transform active:translate-x-[4px] active:translate-y-[4px]" href="#">PORTFOLIO</a>
+<a class="font-headline-md text-headline-md text-on-surface hover:text-primary hover:translate-x-[2px] hover:translate-y-[2px] transition-transform active:translate-x-[4px] active:translate-y-[4px]" href="#">CATALOG</a>
+</div>
+<div class="relative group hidden sm:block">
+<div class="absolute inset-0 translate-x-[6px] translate-y-[6px] bg-true-black group-active:translate-x-[0px] group-active:translate-y-[0px] transition-transform"></div>
+<button class="relative bg-primary-container text-paper-white font-headline-md text-headline-md border-[3px] border-true-black px-6 py-2 uppercase hover:bg-secondary-container transition-colors group-active:translate-x-[6px] group-active:translate-y-[6px]">
+                    START A PROJECT
+                </button>
+</div>
+<button class="md:hidden block relative z-10 group">
+<span class="material-symbols-outlined text-true-black text-[32px]">menu</span>
+</button>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="w-full max-w-container-max mx-auto px-gutter py-section-padding flex flex-col gap-16">
+<!-- Header Section -->
+<header class="flex flex-col md:flex-row justify-between items-end gap-8 relative z-10">
+<div class="max-w-2xl">
+<h1 class="font-display-2xl text-display-2xl text-true-black leading-[0.85] tracking-tight uppercase">
+                    CAPABILITIES<br/>
+<span class="text-primary-container">MATRIX.</span>
+</h1>
+</div>
+<div class="max-w-md p-6 bg-surface-container-lowest border-[3px] border-true-black relative">
+<div class="absolute top-0 right-0 w-4 h-4 bg-secondary-container border-b-[3px] border-l-[3px] border-true-black"></div>
+<p class="font-body-md text-body-md text-on-surface uppercase">
+                    WE ENGINEER DIGITAL SYSTEMS DESIGNED FOR EXTREME PERFORMANCE. NO FLUFF. PURE LEVERAGE. SELECT A DISCIPLINE TO INITIALIZE PROTOCOLS.
+                </p>
+</div>
+</header>
+<!-- Services Grid - Neo-Brutalist 2x2 -->
+<section class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 relative z-10">
+<!-- 01 - AI / Automation (Red) -->
+<div class="relative group h-full">
+<div class="absolute inset-0 translate-x-[6px] translate-y-[6px] bg-true-black transition-transform"></div>
+<article class="relative h-full flex flex-col bg-primary-container border-[3px] border-true-black p-8 sm:p-12 z-10 group-hover:-translate-y-2 group-hover:-translate-x-2 transition-transform duration-200">
+<div class="flex justify-between items-start mb-16">
+<div class="bg-true-black px-3 py-1 border-[3px] border-true-black -ml-4 -mt-4 shadow-[4px_4px_0px_0px_theme(colors.paper-white)]">
+<span class="font-label-mono text-label-mono text-paper-white uppercase tracking-wider">Sys.Active</span>
+</div>
+<span class="font-display-2xl text-display-2xl text-true-black opacity-30 leading-none">01</span>
+</div>
+<div class="mt-auto">
+<h2 class="font-headline-lg text-headline-lg text-paper-white uppercase mb-4 leading-none">
+                            AI / AUTOMATION
+                        </h2>
+<p class="font-body-lg text-body-lg text-paper-white mb-6 uppercase border-l-[3px] border-true-black pl-4">
+                            Workflow synthesis. Machine learning pipelines. Elimination of redundant human operations via algorithmic force.
+                        </p>
+<div class="flex flex-wrap gap-2">
+<span class="px-3 py-1 bg-true-black text-paper-white font-label-mono text-label-mono uppercase border-[3px] border-true-black">TensorFlow</span>
+<span class="px-3 py-1 bg-true-black text-paper-white font-label-mono text-label-mono uppercase border-[3px] border-true-black">OpenAI API</span>
+<span class="px-3 py-1 bg-true-black text-paper-white font-label-mono text-label-mono uppercase border-[3px] border-true-black">Python</span>
+</div>
+</div>
+</article>
+</div>
+<!-- 02 - E-commerce (Orange) -->
+<div class="relative group h-full">
+<div class="absolute inset-0 translate-x-[6px] translate-y-[6px] bg-true-black transition-transform"></div>
+<article class="relative h-full flex flex-col bg-secondary-container border-[3px] border-true-black p-8 sm:p-12 z-10 group-hover:-translate-y-2 group-hover:-translate-x-2 transition-transform duration-200">
+<div class="flex justify-between items-start mb-16">
+<div class="bg-paper-white px-3 py-1 border-[3px] border-true-black -ml-4 -mt-4 shadow-[4px_4px_0px_0px_theme(colors.true-black)]">
+<span class="font-label-mono text-label-mono text-true-black uppercase tracking-wider">Comm.Link</span>
+</div>
+<span class="font-display-2xl text-display-2xl text-paper-white opacity-40 leading-none">02</span>
+</div>
+<div class="mt-auto">
+<h2 class="font-headline-lg text-headline-lg text-true-black uppercase mb-4 leading-none">
+                            E-COMMERCE
+                        </h2>
+<p class="font-body-lg text-body-lg text-true-black mb-6 uppercase border-l-[3px] border-paper-white pl-4">
+                            High-volume transaction architectures. Frictionless cart paths. Conversion-optimized retail environments.
+                        </p>
+<div class="flex flex-wrap gap-2">
+<span class="px-3 py-1 bg-paper-white text-true-black font-label-mono text-label-mono uppercase border-[3px] border-true-black">Shopify Plus</span>
+<span class="px-3 py-1 bg-paper-white text-true-black font-label-mono text-label-mono uppercase border-[3px] border-true-black">Stripe</span>
+<span class="px-3 py-1 bg-paper-white text-true-black font-label-mono text-label-mono uppercase border-[3px] border-true-black">Next.js</span>
+</div>
+</div>
+</article>
+</div>
+<!-- 03 - Mobile App (White) -->
+<div class="relative group h-full">
+<div class="absolute inset-0 translate-x-[6px] translate-y-[6px] bg-true-black transition-transform"></div>
+<article class="relative h-full flex flex-col bg-surface-container-lowest border-[3px] border-true-black p-8 sm:p-12 z-10 group-hover:-translate-y-2 group-hover:-translate-x-2 transition-transform duration-200">
+<div class="flex justify-between items-start mb-16">
+<div class="bg-primary-container px-3 py-1 border-[3px] border-true-black -ml-4 -mt-4 shadow-[4px_4px_0px_0px_theme(colors.true-black)]">
+<span class="font-label-mono text-label-mono text-paper-white uppercase tracking-wider">Handheld.OS</span>
+</div>
+<span class="font-display-2xl text-display-2xl text-surface-dim leading-none">03</span>
+</div>
+<div class="mt-auto">
+<h2 class="font-headline-lg text-headline-lg text-true-black uppercase mb-4 leading-none">
+                            MOBILE APP
+                        </h2>
+<p class="font-body-lg text-body-lg text-true-black mb-6 uppercase border-l-[3px] border-secondary-container pl-4">
+                            Tactile native experiences. Cross-platform logic. Persistent connectivity for iOS and Android ecosystems.
+                        </p>
+<div class="flex flex-wrap gap-2">
+<span class="px-3 py-1 bg-secondary-container text-true-black font-label-mono text-label-mono uppercase border-[3px] border-true-black">React Native</span>
+<span class="px-3 py-1 bg-secondary-container text-true-black font-label-mono text-label-mono uppercase border-[3px] border-true-black">Swift</span>
+<span class="px-3 py-1 bg-secondary-container text-true-black font-label-mono text-label-mono uppercase border-[3px] border-true-black">Kotlin</span>
+</div>
+</div>
+</article>
+</div>
+<!-- 04 - Web Development (Black) -->
+<div class="relative group h-full">
+<div class="absolute inset-0 translate-x-[6px] translate-y-[6px] bg-secondary-container transition-transform"></div>
+<article class="relative h-full flex flex-col bg-true-black border-[3px] border-true-black p-8 sm:p-12 z-10 group-hover:-translate-y-2 group-hover:-translate-x-2 transition-transform duration-200">
+<div class="flex justify-between items-start mb-16">
+<div class="bg-surface-container-lowest px-3 py-1 border-[3px] border-true-black -ml-4 -mt-4 shadow-[4px_4px_0px_0px_theme(colors.primary-container)]">
+<span class="font-label-mono text-label-mono text-true-black uppercase tracking-wider">Core.Net</span>
+</div>
+<span class="font-display-2xl text-display-2xl text-inverse-surface leading-none">04</span>
+</div>
+<div class="mt-auto">
+<h2 class="font-headline-lg text-headline-lg text-paper-white uppercase mb-4 leading-none">
+                            WEB DEVELOPMENT
+                        </h2>
+<p class="font-body-lg text-body-lg text-surface-dim mb-6 uppercase border-l-[3px] border-primary-container pl-4">
+                            Scalable frontend interfaces. Robust backend infrastructure. Total domination of the browser canvas.
+                        </p>
+<div class="flex flex-wrap gap-2">
+<span class="px-3 py-1 bg-surface-container-lowest text-true-black font-label-mono text-label-mono uppercase border-[3px] border-true-black">Vue.js</span>
+<span class="px-3 py-1 bg-surface-container-lowest text-true-black font-label-mono text-label-mono uppercase border-[3px] border-true-black">Node.js</span>
+<span class="px-3 py-1 bg-surface-container-lowest text-true-black font-label-mono text-label-mono uppercase border-[3px] border-true-black">PostgreSQL</span>
+</div>
+</div>
+</article>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full mt-section-padding border-t-[3px] border-true-black bg-true-black">
+<div class="flex flex-col md:flex-row justify-between items-start px-gutter py-12 max-w-container-max mx-auto gap-8">
+<div class="flex flex-col gap-4">
+<a class="font-headline-lg text-headline-lg text-primary tracking-tighter" href="#">
+                    MAVEN FORGE
+                </a>
+<p class="font-body-md text-body-md text-paper-white uppercase">
+                    ©2024 MAVEN FORGE. ALL RIGHTS RESERVED.
+                </p>
+</div>
+<div class="flex flex-col md:flex-row gap-6 md:gap-12">
+<div class="flex flex-col gap-2">
+<span class="font-label-mono text-label-mono text-paper-white/50 mb-2">SOCIALS</span>
+<a class="font-body-md text-body-md uppercase text-paper-white/70 hover:text-primary-fixed-dim transition-colors cursor-pointer" href="#">INSTAGRAM</a>
+<a class="font-body-md text-body-md uppercase text-paper-white/70 hover:text-primary-fixed-dim transition-colors cursor-pointer" href="#">TWITTER</a>
+<a class="font-body-md text-body-md uppercase text-paper-white/70 hover:text-primary-fixed-dim transition-colors cursor-pointer" href="#">LINKEDIN</a>
+</div>
+<div class="flex flex-col gap-2">
+<span class="font-label-mono text-label-mono text-paper-white/50 mb-2">LEGAL</span>
+<a class="font-body-md text-body-md uppercase text-paper-white/70 hover:text-primary-fixed-dim transition-colors cursor-pointer" href="#">PRIVACY</a>
+<a class="font-body-md text-body-md uppercase text-paper-white/70 hover:text-primary-fixed-dim transition-colors cursor-pointer" href="#">TERMS</a>
+</div>
+</div>
+</div>
+</footer>
+</body></html>

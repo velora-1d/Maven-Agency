@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>MAVEN Forge - Admin Portfolio Manager</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&amp;family=JetBrains+Mono:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary-fixed-dim": "#ffb4a8",
+                        "on-primary": "#ffffff",
+                        "surface-dim": "#dadada",
+                        "on-secondary-fixed": "#351000",
+                        "primary-container": "#cc0000",
+                        "on-tertiary-fixed-variant": "#0039b4",
+                        "on-primary-fixed-variant": "#930000",
+                        "surface-tint": "#c00000",
+                        "true-black": "#000000",
+                        "on-surface": "#1a1c1c",
+                        "inverse-surface": "#2f3131",
+                        "deep-black": "#0A0A0A",
+                        "surface-container": "#eeeeee",
+                        "on-surface-variant": "#5e3f3a",
+                        "outline-variant": "#e8bdb6",
+                        "error-container": "#ffdad6",
+                        "error": "#ba1a1a",
+                        "on-secondary-fixed-variant": "#7a3000",
+                        "inverse-on-surface": "#f0f1f1",
+                        "secondary-fixed": "#ffdbcc",
+                        "surface-container-high": "#e8e8e8",
+                        "tertiary-container": "#0052f9",
+                        "on-tertiary-fixed": "#001551",
+                        "on-background": "#1a1c1c",
+                        "primary-fixed": "#ffdad4",
+                        "inverse-primary": "#ffb4a8",
+                        "primary": "#9e0000",
+                        "on-error": "#ffffff",
+                        "on-secondary-container": "#572000",
+                        "on-primary-fixed": "#410000",
+                        "secondary-container": "#fe6b00",
+                        "outline": "#926e69",
+                        "surface-container-low": "#f3f3f4",
+                        "on-tertiary-container": "#dce1ff",
+                        "secondary": "#a04100",
+                        "surface-variant": "#e2e2e2",
+                        "on-tertiary": "#ffffff",
+                        "background": "#f9f9f9",
+                        "surface-container-highest": "#e2e2e2",
+                        "surface-container-lowest": "#ffffff",
+                        "tertiary-fixed": "#dce1ff",
+                        "tertiary-fixed-dim": "#b7c4ff",
+                        "on-primary-container": "#ffdad4",
+                        "paper-white": "#FFFFFF",
+                        "tertiary": "#003ec2",
+                        "on-error-container": "#93000a",
+                        "on-secondary": "#ffffff",
+                        "secondary-fixed-dim": "#ffb693",
+                        "surface-bright": "#f9f9f9",
+                        "surface": "#f9f9f9"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "container-max": "1440px",
+                        "shadow-offset": "6px",
+                        "section-padding": "80px",
+                        "border-width": "3px",
+                        "gutter": "24px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["JetBrains Mono"],
+                        "body-lg": ["JetBrains Mono"],
+                        "display-2xl": ["Bebas Neue"],
+                        "headline-md": ["Bebas Neue"],
+                        "headline-lg-mobile": ["Bebas Neue"],
+                        "headline-lg": ["Bebas Neue"],
+                        "label-mono": ["JetBrains Mono"]
+                    },
+                    "fontSize": {
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "500" }],
+                        "display-2xl": ["120px", { "lineHeight": "110px", "letterSpacing": "0.02em", "fontWeight": "400" }],
+                        "headline-md": ["32px", { "lineHeight": "32px", "fontWeight": "400" }],
+                        "headline-lg-mobile": ["48px", { "lineHeight": "48px", "fontWeight": "400" }],
+                        "headline-lg": ["64px", { "lineHeight": "64px", "letterSpacing": "0.03em", "fontWeight": "400" }],
+                        "label-mono": ["14px", { "lineHeight": "16px", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .neo-shadow {
+            box-shadow: 6px 6px 0px 0px rgba(0,0,0,1);
+        }
+        .neo-shadow-sm {
+            box-shadow: 4px 4px 0px 0px rgba(0,0,0,1);
+        }
+        .neo-border {
+            border: 3px solid #000000;
+        }
+        .btn-neo {
+            transition: transform 0.1s, box-shadow 0.1s, background-color 0.2s;
+        }
+        .btn-neo:active {
+            transform: translate(6px, 6px);
+            box-shadow: 0px 0px 0px 0px rgba(0,0,0,1);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-md antialiased overflow-x-hidden min-h-screen flex">
+<!-- SideNavBar -->
+<nav class="bg-surface-container dark:bg-surface-container-highest text-primary font-label-mono uppercase h-screen w-64 fixed left-0 top-0 border-r-[3px] border-true-black shadow-[6px_0px_0px_0px_rgba(0,0,0,1)] flex flex-col h-full py-6 z-50">
+<div class="px-6 mb-8">
+<h1 class="font-headline-md text-headline-md text-true-black tracking-tighter">MAVEN FORGE</h1>
+<p class="text-xs text-on-surface-variant mt-1">ADMIN CONTROL</p>
+</div>
+<ul class="flex-grow flex flex-col space-y-2">
+<li>
+<a class="flex items-center px-6 py-3 text-on-surface hover:bg-surface-variant m-2 border-[3px] border-transparent hover:border-true-black hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all active:translate-x-1 active:translate-y-1 active:shadow-none" href="#">
+<span class="material-symbols-outlined mr-4 text-xl">dashboard</span>
+                    DASHBOARD
+                </a>
+</li>
+<li>
+<a class="flex items-center px-6 py-3 bg-secondary-container text-on-secondary-container border-[3px] border-true-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] m-2 active:translate-x-1 active:translate-y-1 active:shadow-none" href="#">
+<span class="material-symbols-outlined mr-4 text-xl">work</span>
+                    PORTFOLIO
+                </a>
+</li>
+<li>
+<a class="flex items-center px-6 py-3 text-on-surface hover:bg-surface-variant m-2 border-[3px] border-transparent hover:border-true-black hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all active:translate-x-1 active:translate-y-1 active:shadow-none" href="#">
+<span class="material-symbols-outlined mr-4 text-xl">bolt</span>
+                    SERVICES
+                </a>
+</li>
+<li>
+<a class="flex items-center px-6 py-3 text-on-surface hover:bg-surface-variant m-2 border-[3px] border-transparent hover:border-true-black hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all active:translate-x-1 active:translate-y-1 active:shadow-none" href="#">
+<span class="material-symbols-outlined mr-4 text-xl">groups</span>
+                    TEAM
+                </a>
+</li>
+<li>
+<a class="flex items-center px-6 py-3 text-on-surface hover:bg-surface-variant m-2 border-[3px] border-transparent hover:border-true-black hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all active:translate-x-1 active:translate-y-1 active:shadow-none" href="#">
+<span class="material-symbols-outlined mr-4 text-xl">grade</span>
+                    REVIEWS
+                </a>
+</li>
+<li>
+<a class="flex items-center px-6 py-3 text-on-surface hover:bg-surface-variant m-2 border-[3px] border-transparent hover:border-true-black hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all active:translate-x-1 active:translate-y-1 active:shadow-none" href="#">
+<span class="material-symbols-outlined mr-4 text-xl">inventory_2</span>
+                    KATALOG
+                </a>
+</li>
+</ul>
+<div class="mt-auto pt-6 border-t-[3px] border-true-black">
+<ul>
+<li>
+<a class="flex items-center px-6 py-3 text-on-surface hover:bg-surface-variant m-2 border-[3px] border-transparent hover:border-true-black hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all active:translate-x-1 active:translate-y-1 active:shadow-none" href="#">
+<span class="material-symbols-outlined mr-4 text-xl">settings</span>
+                        SETTINGS
+                    </a>
+</li>
+</ul>
+<div class="px-6 mt-4">
+<button class="w-full py-2 bg-primary-container text-on-primary font-headline-md text-headline-md neo-border neo-shadow-sm btn-neo hover:bg-secondary-container">
+                    LOGOUT
+                </button>
+</div>
+</div>
+</nav>
+<!-- Main Content Area -->
+<div class="flex-grow ml-64 flex flex-col min-h-screen">
+<!-- TopAppBar -->
+<header class="bg-surface-container-lowest dark:bg-surface-container-low text-on-surface font-headline-md text-headline-md w-full sticky top-0 z-40 border-b-[3px] border-true-black flex justify-between items-center px-8 py-4">
+<div class="flex items-center space-x-4">
+<span class="material-symbols-outlined text-primary cursor-pointer hover:bg-surface-container-high transition-colors duration-150 p-2 border-[3px] border-transparent hover:border-true-black hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:translate-x-1 active:translate-y-1 active:shadow-none bg-white">menu</span>
+<h2 class="text-primary tracking-wide">ADMIN DASHBOARD</h2>
+</div>
+<div class="flex items-center space-x-4">
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:bg-surface-container-high transition-colors duration-150 p-2 border-[3px] border-transparent hover:border-true-black hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:translate-x-1 active:translate-y-1 active:shadow-none bg-white">notifications</span>
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:bg-surface-container-high transition-colors duration-150 p-2 border-[3px] border-transparent hover:border-true-black hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:translate-x-1 active:translate-y-1 active:shadow-none bg-white">account_circle</span>
+</div>
+</header>
+<!-- Page Content -->
+<main class="p-gutter flex-grow bg-surface-bright">
+<!-- Page Header & Actions -->
+<div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-8 border-b-[3px] border-true-black pb-4">
+<div>
+<h1 class="font-headline-lg text-headline-lg text-true-black tracking-tighter uppercase mb-2">PORTFOLIO MANAGER</h1>
+<p class="font-body-md text-on-surface-variant max-w-2xl">Manage active projects, update case study details, and control visibility across the public-facing Maven Forge portfolio catalog.</p>
+</div>
+<div class="mt-4 md:mt-0 flex gap-4">
+<button class="bg-primary-container text-on-primary font-headline-md text-headline-md px-6 py-2 neo-border neo-shadow btn-neo hover:bg-secondary-container flex items-center gap-2 uppercase tracking-wide">
+<span class="material-symbols-outlined">add</span>
+                        ADD PROJECT
+                    </button>
+</div>
+</div>
+<!-- Filters & Search -->
+<div class="flex gap-4 mb-8">
+<div class="relative flex-grow max-w-md">
+<span class="material-symbols-outlined absolute left-3 top-1/2 transform -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="w-full pl-10 pr-4 py-3 bg-white neo-border font-label-mono text-true-black focus:outline-none focus:ring-0 focus:border-true-black focus:shadow-[4px_4px_0px_0px_#fe6b00] transition-shadow placeholder:text-true-black/50" placeholder="SEARCH PROJECTS..." type="text"/>
+</div>
+<button class="bg-white text-true-black font-label-mono px-4 py-3 neo-border neo-shadow-sm btn-neo hover:bg-surface-container-high flex items-center gap-2">
+<span class="material-symbols-outlined text-lg">filter_list</span>
+                    FILTER
+                </button>
+<button class="bg-white text-true-black font-label-mono px-4 py-3 neo-border neo-shadow-sm btn-neo hover:bg-surface-container-high flex items-center gap-2">
+<span class="material-symbols-outlined text-lg">sort</span>
+                    SORT
+                </button>
+</div>
+<!-- Data Grid (Bento/Card Layout) -->
+<div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8">
+<!-- Project Card 1 -->
+<div class="bg-white neo-border neo-shadow flex flex-col relative group">
+<div class="absolute top-0 right-0 bg-primary-container text-on-primary font-headline-md text-headline-md px-3 py-1 neo-border border-t-0 border-r-0 z-10">
+                        01
+                    </div>
+<div class="h-48 bg-surface-dim neo-border border-t-0 border-l-0 border-r-0 relative overflow-hidden">
+<img alt="Corporate office interior design" class="w-full h-full object-cover grayscale opacity-80 group-hover:grayscale-0 transition-all duration-300" data-alt="A modern, brutalist-inspired corporate office interior featuring exposed concrete columns, stark geometric furniture, and high-contrast lighting. The space is illuminated by harsh, angular sunlight streaming through large industrial windows, casting deep black shadows against bright white and vibrant red accents. The atmosphere is professional yet unapologetically raw and energetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA4uYXlz_m4U6frikSrQ1swGCE_7azKVSyh0ywFVUAtkoCxk9WErDR6x168tCcvHBU9ar4Waz2jLPOjEgKA1bz6XBBkiOwRHbFfhaPp2JayEg3C_3SBVEMkFejasDNpiAB0-NLlEBRILsb-Df3L9obhDSrvrrF6KG9s49LLxqZBCaIMtSoc8_KC6E61vRaGY9aS_jblxE5QfZUfNm1Y2gz8FWWuL_si5d_h3N-AattL1ncI5-R-mrQsarcO_F03_43ICy7hWK4twMU"/>
+<div class="absolute bottom-2 left-2 flex gap-2">
+<span class="bg-secondary-container text-white font-label-mono px-2 py-1 neo-border text-xs">COMMERCIAL</span>
+<span class="bg-black text-white font-label-mono px-2 py-1 neo-border text-xs">LIVE</span>
+</div>
+</div>
+<div class="p-6 flex-grow flex flex-col">
+<h3 class="font-headline-md text-headline-md text-true-black leading-tight mb-2 uppercase">APEX DYNAMICS HQ</h3>
+<p class="font-body-md text-sm text-on-surface-variant mb-4 line-clamp-2">Complete structural overhaul and interior spatial redesign for a 50,000 sq ft tech hub.</p>
+<div class="mt-auto pt-4 border-t-[3px] border-true-black flex justify-between items-center gap-2">
+<button class="flex-1 bg-white text-true-black font-label-mono py-2 neo-border neo-shadow-sm btn-neo hover:bg-surface-container-high flex justify-center items-center gap-1">
+<span class="material-symbols-outlined text-sm">edit</span>
+                                EDIT
+                            </button>
+<button class="px-3 py-2 bg-white text-primary-container neo-border neo-shadow-sm btn-neo hover:bg-error-container hover:text-error flex justify-center items-center">
+<span class="material-symbols-outlined text-sm">delete</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Project Card 2 -->
+<div class="bg-white neo-border neo-shadow flex flex-col relative group">
+<div class="absolute top-0 right-0 bg-secondary-container text-white font-headline-md text-headline-md px-3 py-1 neo-border border-t-0 border-r-0 z-10">
+                        02
+                    </div>
+<div class="h-48 bg-surface-dim neo-border border-t-0 border-l-0 border-r-0 relative overflow-hidden">
+<img alt="Industrial warehouse renovation" class="w-full h-full object-cover grayscale opacity-80 group-hover:grayscale-0 transition-all duration-300" data-alt="An expansive industrial warehouse converted into a modern art gallery space. The image highlights raw brick walls painted stark white, massive steel beams in matte black, and strategic splashes of safety orange on structural elements. Lighting is dramatic and high-contrast, emphasizing the geometric lines and cavernous scale of the brutalist architectural design." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB8h9N1Vw5SK0VCSaSzPavsxuwT0DvuyXpP17FSs4e_bBYixV2URjDG_6Brlo4pRaHjBjIiy7tHP2ccZFBIvq07_umzhsuwYq4kNdUbotIGcr9CFm0Yqc5oTpBgPzdG19RRWp_KK15MXx5BpRksjBZlgO0C4Ow0_FwJO2pLsi7xw_2F3nEaBtID1vXjl1CZkWPL3s1TEX_pv72HuHdmMiqfHdqJlQnJBncIxWSxon0k4vQRPQbenG27Z7geiyh7LI8IFBFmC2hjkYs"/>
+<div class="absolute bottom-2 left-2 flex gap-2">
+<span class="bg-secondary-container text-white font-label-mono px-2 py-1 neo-border text-xs">RENOVATION</span>
+<span class="bg-surface-dim text-true-black font-label-mono px-2 py-1 neo-border text-xs">DRAFT</span>
+</div>
+</div>
+<div class="p-6 flex-grow flex flex-col">
+<h3 class="font-headline-md text-headline-md text-true-black leading-tight mb-2 uppercase">FOUNDRY ARTS DISTRICT</h3>
+<p class="font-body-md text-sm text-on-surface-variant mb-4 line-clamp-2">Transformation of an abandoned steel mill into a multi-use creative compound and gallery.</p>
+<div class="mt-auto pt-4 border-t-[3px] border-true-black flex justify-between items-center gap-2">
+<button class="flex-1 bg-white text-true-black font-label-mono py-2 neo-border neo-shadow-sm btn-neo hover:bg-surface-container-high flex justify-center items-center gap-1">
+<span class="material-symbols-outlined text-sm">edit</span>
+                                EDIT
+                            </button>
+<button class="px-3 py-2 bg-white text-primary-container neo-border neo-shadow-sm btn-neo hover:bg-error-container hover:text-error flex justify-center items-center">
+<span class="material-symbols-outlined text-sm">delete</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Project Card 3 -->
+<div class="bg-black text-white neo-border border-white shadow-[6px_6px_0px_0px_#cc0000] flex flex-col relative group">
+<div class="absolute top-0 right-0 bg-white text-black font-headline-md text-headline-md px-3 py-1 neo-border border-white border-t-0 border-r-0 z-10">
+                        03
+                    </div>
+<div class="h-48 bg-true-black border-b-[3px] border-white relative overflow-hidden">
+<img alt="Minimalist architectural facade" class="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-all duration-300" data-alt="A close-up shot of a minimalist, neo-brutalist building facade. The structure features sharp, asymmetrical concrete blocks with thick black window frames. A solitary red accent panel breaks the monochrome palette. The lighting creates deep, hard-edged shadows, emphasizing the tactile, rigid geometry and aggressive styling characteristic of industrial digital aesthetics." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCQXhT1uVLjYCo6VVl_HRawTwKDuhji27wI1xmGTVd0eNa69oW7EuMy5jv5vWXqkLqQhTFXTE7NGQ6MDrDkfx_WuhCDVQ9ihFWtSmt6pzhWJ1gVaSGfO7-jcGF81klbUXJK9__H38nF186DSMcdT6HYTs0H7I9_elsG5VowDk1SEwf7Ok86u8iotl1LywdiInkbH9JNH0Cbym4rNNL926FnEmscxX3uB49p0avgR9bZUTYH-7SRt-MN9wQDmg74Pwzwi4TOXcIewJw"/>
+<div class="absolute bottom-2 left-2 flex gap-2">
+<span class="bg-primary-container text-white font-label-mono px-2 py-1 neo-border border-white text-xs">RESIDENTIAL</span>
+<span class="bg-black text-white font-label-mono px-2 py-1 neo-border border-white text-xs">LIVE</span>
+</div>
+</div>
+<div class="p-6 flex-grow flex flex-col">
+<h3 class="font-headline-md text-headline-md text-white leading-tight mb-2 uppercase">THE MONOLITH HOUSE</h3>
+<p class="font-body-md text-sm text-surface-dim mb-4 line-clamp-2">Award-winning brutalist residential property built entirely from cast-in-place concrete.</p>
+<div class="mt-auto pt-4 border-t-[3px] border-white flex justify-between items-center gap-2">
+<button class="flex-1 bg-black text-white font-label-mono py-2 neo-border border-white shadow-[4px_4px_0px_0px_#ffffff] btn-neo hover:bg-inverse-surface flex justify-center items-center gap-1">
+<span class="material-symbols-outlined text-sm">edit</span>
+                                EDIT
+                            </button>
+<button class="px-3 py-2 bg-black text-primary-fixed-dim neo-border border-white shadow-[4px_4px_0px_0px_#ffffff] btn-neo hover:bg-error-container hover:text-error flex justify-center items-center">
+<span class="material-symbols-outlined text-sm">delete</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Add New Card Placeholder -->
+<div class="bg-surface-container border-[3px] border-dashed border-true-black flex flex-col justify-center items-center p-8 cursor-pointer hover:bg-surface-variant transition-colors group min-h-[350px]">
+<div class="w-16 h-16 rounded-full border-[3px] border-true-black flex justify-center items-center mb-4 group-hover:bg-primary-container group-hover:text-white transition-colors bg-white">
+<span class="material-symbols-outlined text-3xl">add</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-true-black uppercase">NEW PROJECT</h3>
+<p class="font-label-mono text-on-surface-variant text-sm mt-2 text-center">INITIALIZE A NEW WORKSPACE</p>
+</div>
+</div>
+</main>
+</div>
+</body></html>

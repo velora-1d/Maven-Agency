@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>MAVEN FORGE - CATALOG</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&amp;family=JetBrains+Mono:wght@400;500;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary-fixed-dim": "#ffb4a8",
+                        "on-primary": "#ffffff",
+                        "surface-dim": "#dadada",
+                        "on-secondary-fixed": "#351000",
+                        "primary-container": "#cc0000",
+                        "on-tertiary-fixed-variant": "#0039b4",
+                        "on-primary-fixed-variant": "#930000",
+                        "surface-tint": "#c00000",
+                        "true-black": "#000000",
+                        "on-surface": "#1a1c1c",
+                        "inverse-surface": "#2f3131",
+                        "deep-black": "#0A0A0A",
+                        "surface-container": "#eeeeee",
+                        "on-surface-variant": "#5e3f3a",
+                        "outline-variant": "#e8bdb6",
+                        "error-container": "#ffdad6",
+                        "error": "#ba1a1a",
+                        "on-secondary-fixed-variant": "#7a3000",
+                        "inverse-on-surface": "#f0f1f1",
+                        "secondary-fixed": "#ffdbcc",
+                        "surface-container-high": "#e8e8e8",
+                        "tertiary-container": "#0052f9",
+                        "on-tertiary-fixed": "#001551",
+                        "on-background": "#1a1c1c",
+                        "primary-fixed": "#ffdad4",
+                        "inverse-primary": "#ffb4a8",
+                        "primary": "#9e0000",
+                        "on-error": "#ffffff",
+                        "on-secondary-container": "#572000",
+                        "on-primary-fixed": "#410000",
+                        "secondary-container": "#fe6b00",
+                        "outline": "#926e69",
+                        "surface-container-low": "#f3f3f4",
+                        "on-tertiary-container": "#dce1ff",
+                        "secondary": "#a04100",
+                        "surface-variant": "#e2e2e2",
+                        "on-tertiary": "#ffffff",
+                        "background": "#f9f9f9",
+                        "surface-container-highest": "#e2e2e2",
+                        "surface-container-lowest": "#ffffff",
+                        "tertiary-fixed": "#dce1ff",
+                        "tertiary-fixed-dim": "#b7c4ff",
+                        "on-primary-container": "#ffdad4",
+                        "paper-white": "#FFFFFF",
+                        "tertiary": "#003ec2",
+                        "on-error-container": "#93000a",
+                        "on-secondary": "#ffffff",
+                        "secondary-fixed-dim": "#ffb693",
+                        "surface-bright": "#f9f9f9",
+                        "surface": "#f9f9f9"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "container-max": "1440px",
+                        "shadow-offset": "6px",
+                        "section-padding": "80px",
+                        "border-width": "3px",
+                        "gutter": "24px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["JetBrains Mono"],
+                        "body-lg": ["JetBrains Mono"],
+                        "display-2xl": ["Bebas Neue"],
+                        "headline-md": ["Bebas Neue"],
+                        "headline-lg-mobile": ["Bebas Neue"],
+                        "headline-lg": ["Bebas Neue"],
+                        "label-mono": ["JetBrains Mono"]
+                    },
+                    "fontSize": {
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "500"}],
+                        "display-2xl": ["120px", {"lineHeight": "110px", "letterSpacing": "0.02em", "fontWeight": "400"}],
+                        "headline-md": ["32px", {"lineHeight": "32px", "fontWeight": "400"}],
+                        "headline-lg-mobile": ["48px", {"lineHeight": "48px", "fontWeight": "400"}],
+                        "headline-lg": ["64px", {"lineHeight": "64px", "letterSpacing": "0.03em", "fontWeight": "400"}],
+                        "label-mono": ["14px", {"lineHeight": "16px", "fontWeight": "700"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .neo-shadow { box-shadow: 6px 6px 0px 0px rgba(0,0,0,1); }
+        .neo-shadow-hover:hover { box-shadow: 6px 6px 0px 0px rgba(0,0,0,1); transform: translate(-2px, -2px); }
+        .neo-shadow-active:active { box-shadow: 0px 0px 0px 0px rgba(0,0,0,1); transform: translate(6px, 6px); }
+        .neo-border { border: 3px solid #000000; }
+        .neo-border-top { border-top: 3px solid #000000; }
+        .neo-border-bottom { border-bottom: 3px solid #000000; }
+        .neo-input:focus { outline: none; border-color: #000000; box-shadow: 6px 6px 0px 0px #fe6b00; }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body-md min-h-screen flex flex-col selection:bg-primary-container selection:text-paper-white">
+<!-- TopNavBar -->
+<nav class="bg-surface dark:bg-surface w-full top-0 z-50 sticky border-b-[3px] border-true-black">
+<div class="flex justify-between items-center w-full px-gutter py-4 max-w-container-max mx-auto">
+<a class="font-headline-md text-headline-md font-black text-primary dark:text-primary-fixed-dim tracking-tighter hover:translate-x-[2px] hover:translate-y-[2px] transition-transform active:translate-x-[4px] active:translate-y-[4px]" href="#">
+                MAVEN FORGE
+            </a>
+<div class="hidden md:flex items-center gap-8 font-headline-md text-headline-md uppercase">
+<a class="text-on-surface dark:text-on-surface hover:text-primary hover:translate-x-[2px] hover:translate-y-[2px] transition-transform active:translate-x-[4px] active:translate-y-[4px]" href="#">HOME</a>
+<a class="text-on-surface dark:text-on-surface hover:text-primary hover:translate-x-[2px] hover:translate-y-[2px] transition-transform active:translate-x-[4px] active:translate-y-[4px]" href="#">ABOUT</a>
+<a class="text-on-surface dark:text-on-surface hover:text-primary hover:translate-x-[2px] hover:translate-y-[2px] transition-transform active:translate-x-[4px] active:translate-y-[4px]" href="#">SERVICES</a>
+<a class="text-on-surface dark:text-on-surface hover:text-primary hover:translate-x-[2px] hover:translate-y-[2px] transition-transform active:translate-x-[4px] active:translate-y-[4px]" href="#">PORTFOLIO</a>
+<a class="text-secondary dark:text-secondary-fixed underline decoration-[3px] underline-offset-8 hover:translate-x-[2px] hover:translate-y-[2px] transition-transform active:translate-x-[4px] active:translate-y-[4px]" href="#">CATALOG</a>
+</div>
+<button class="bg-primary-container text-paper-white neo-border neo-shadow neo-shadow-active font-headline-md text-headline-md uppercase px-6 py-2 hover:bg-secondary-container transition-colors hidden md:block">
+                START A PROJECT
+            </button>
+<button class="md:hidden neo-border p-2 bg-paper-white neo-shadow neo-shadow-active text-true-black">
+<span class="material-symbols-outlined block">menu</span>
+</button>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="flex-grow w-full max-w-container-max mx-auto px-gutter py-12">
+<!-- Header & Controls -->
+<div class="mb-12 border-b-[3px] border-true-black pb-8">
+<div class="flex flex-col md:flex-row justify-between items-end gap-6">
+<div>
+<h1 class="font-display-2xl text-headline-lg-mobile md:text-display-2xl text-true-black uppercase leading-none mb-2">SYSTEM CATALOG</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl border-l-[3px] border-primary-container pl-4">Explore our industrial-grade components and modules. Designed for extreme environments and high-stress deployments.</p>
+</div>
+<div class="flex flex-col sm:flex-row gap-4 w-full md:w-auto">
+<div class="relative w-full sm:w-64">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-true-black/50">search</span>
+<input class="w-full h-12 bg-paper-white neo-border pl-10 pr-4 font-label-mono text-label-mono placeholder:text-true-black/50 neo-input text-true-black uppercase" placeholder="SEARCH CATALOG" type="text"/>
+</div>
+<button class="h-12 px-6 bg-paper-white neo-border neo-shadow neo-shadow-active font-label-mono text-label-mono uppercase flex items-center justify-center gap-2 hover:bg-surface-variant transition-colors whitespace-nowrap text-true-black">
+<span class="material-symbols-outlined text-[20px]">tune</span>
+                        FILTERS
+                    </button>
+</div>
+</div>
+</div>
+<!-- Catalog Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 gap-y-12">
+<!-- Item 1 -->
+<div class="bg-paper-white neo-border flex flex-col relative group">
+<div class="absolute -top-4 -right-4 bg-primary-container text-paper-white px-3 py-1 neo-border neo-shadow font-headline-md text-[24px] leading-none z-10 rotate-3 group-hover:rotate-6 transition-transform">
+                    01
+                </div>
+<div class="h-64 border-b-[3px] border-true-black bg-surface-container overflow-hidden relative">
+<img class="w-full h-full object-cover mix-blend-luminosity opacity-80 group-hover:scale-105 transition-transform duration-500" data-alt="A highly detailed close-up of complex mechanical gears and industrial machinery parts. The image features a gritty, high-contrast black and white neo-brutalist aesthetic. Harsh overhead lighting casts deep, sharp black shadows emphasizing the metallic textures. Occasional subtle red UI accents highlight technical joints, creating a raw, engineering-focused mood." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA7itA5XLsWE2SJwzVSDpiorMUymBaBa5Be6WX3SyIaHz1n1nbE4j_j2sDtIMTxyeOaQEg9eErEOX59gU7mrXjK_IDTrBCOfFv00z4MWPWZh7iG5A05nlfrDhY1AcjjDd5ZhGN_We-mYnLX0sr4bu70OOZ0zKp6peRYDdfdsu4IU8aR6cW1efZj_f2VyRq52Nr_4vpFwYGB8zb4eGnBr1jHv3BnJhSweCKbRjm48IV3TPrSobdZ9bdv1Lt0WcjsSsThFAIt1xmpvlk"/>
+<div class="absolute top-4 left-4 flex gap-2">
+<span class="bg-secondary-container text-paper-white font-label-mono text-label-mono px-2 py-1 neo-border text-xs uppercase">POWER</span>
+<span class="bg-true-black text-paper-white font-label-mono text-label-mono px-2 py-1 border-[3px] border-paper-white text-xs uppercase">CORE</span>
+</div>
+</div>
+<div class="p-6 flex flex-col flex-grow">
+<h3 class="font-headline-md text-headline-md text-true-black leading-none mb-2 uppercase">KINETIC REACTOR X-1</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6 flex-grow">High-yield kinetic energy containment unit. Features reinforced casing and automated thermal venting protocols.</p>
+<div class="flex justify-between items-center mt-auto border-t-[3px] border-true-black pt-4">
+<span class="font-label-mono text-label-mono text-true-black text-lg">M-CR 4,500</span>
+<button class="bg-primary-container text-paper-white neo-border neo-shadow neo-shadow-active font-label-mono text-label-mono uppercase px-4 py-2 hover:bg-secondary-container transition-colors">
+                            ORDER NOW
+                        </button>
+</div>
+</div>
+</div>
+<!-- Item 2 -->
+<div class="bg-paper-white neo-border flex flex-col relative group">
+<div class="absolute -top-4 -right-4 bg-primary-container text-paper-white px-3 py-1 neo-border neo-shadow font-headline-md text-[24px] leading-none z-10 rotate-3 group-hover:rotate-6 transition-transform">
+                    02
+                </div>
+<div class="h-64 border-b-[3px] border-true-black bg-surface-container overflow-hidden relative">
+<img class="w-full h-full object-cover mix-blend-luminosity opacity-80 group-hover:scale-105 transition-transform duration-500" data-alt="A macro shot of a sleek, heavy-duty server rack or processing unit with exposed metallic fins and cabling. The lighting is stark and directional, creating a brutalist, industrial look. The palette is dominated by stark whites, deep blacks, and harsh shadows. A distinct orange or red glowing diode provides a sharp accent color against the monochrome hardware." src="https://lh3.googleusercontent.com/aida-public/AB6AXuArKUGDGgP0SUr5eA5hulpHujKiTX58C8ow1QeWbKzaHF5iH3ZjhxuCBuSyFzLS9J8P7meMY_9-OuaYNzSeM55rv0VyFOIjLB-x9g7YhGR8RCTWG8rVzIY7LZq8T5HJVjCTn-vkG0QwN0VSoZ8FJNPDS41dyof9llcRyTs_DSJib_MSmVa3ddyv_K1kSIDjXKdtbdOEN4ryC2hfErQEZWDpZQp-I1l_aRl0N7fy6sOmJvPsqUb58LOMzmmmqikqplxKB_oZ6E3agF8"/>
+<div class="absolute top-4 left-4 flex gap-2">
+<span class="bg-true-black text-paper-white font-label-mono text-label-mono px-2 py-1 border-[3px] border-paper-white text-xs uppercase">DATA</span>
+</div>
+</div>
+<div class="p-6 flex flex-col flex-grow">
+<h3 class="font-headline-md text-headline-md text-true-black leading-none mb-2 uppercase">NEURAL LINK NODE</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6 flex-grow">Secure localized data processing terminal. Impervious to standard electromagnetic interference.</p>
+<div class="flex justify-between items-center mt-auto border-t-[3px] border-true-black pt-4">
+<span class="font-label-mono text-label-mono text-true-black text-lg">M-CR 2,100</span>
+<button class="bg-primary-container text-paper-white neo-border neo-shadow neo-shadow-active font-label-mono text-label-mono uppercase px-4 py-2 hover:bg-secondary-container transition-colors">
+                            ORDER NOW
+                        </button>
+</div>
+</div>
+</div>
+<!-- Item 3 -->
+<div class="bg-paper-white neo-border flex flex-col relative group">
+<div class="absolute -top-4 -right-4 bg-primary-container text-paper-white px-3 py-1 neo-border neo-shadow font-headline-md text-[24px] leading-none z-10 rotate-3 group-hover:rotate-6 transition-transform">
+                    03
+                </div>
+<div class="h-64 border-b-[3px] border-true-black bg-surface-container overflow-hidden relative">
+<div class="absolute inset-0 bg-[radial-gradient(#cc0000_2px,transparent_2px)] [background-size:16px_16px] opacity-20"></div>
+<img class="w-full h-full object-cover mix-blend-luminosity opacity-80 group-hover:scale-105 transition-transform duration-500" data-alt="An industrial drone or automated robotic arm positioned in a stark, concrete testing facility. The composition is highly asymmetric, reflecting neo-brutalist design principles. Sharp black framing surrounds the metallic silver machinery. The scene is accented by bold red safety warnings painted on the concrete floor, conveying a raw, dangerous, yet highly engineered atmosphere." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC6h1UC-f0Pmdat8GrlMri76Y8Dtxo9h0vC9F0rrQYFHkI4FYJg62VUaX_TfDqBAjBBtsckXLk7ioweUQJi2eoxYl_sD8EpJIgLsBtG-eD9B7UM1U0gXHGzpApb_b-NjM7oY8OzKNk6aClCC8Juj5u83bOFOAGywA25QxgnaCJba7iJEy5s_cD6Gc_8m3CiBYsUvmOmgPoVkWu3mMx039ZxlhzhbzhpOsFTLo6cTYfAevH3RhTRcin-I3s2lC9ZQm4R_VUGmSPG3MI"/>
+<div class="absolute top-4 left-4 flex gap-2">
+<span class="bg-secondary-container text-paper-white font-label-mono text-label-mono px-2 py-1 neo-border text-xs uppercase">AERO</span>
+<span class="bg-true-black text-paper-white font-label-mono text-label-mono px-2 py-1 border-[3px] border-paper-white text-xs uppercase">MK-II</span>
+</div>
+</div>
+<div class="p-6 flex flex-col flex-grow">
+<h3 class="font-headline-md text-headline-md text-true-black leading-none mb-2 uppercase">VOID GLIDER DRONE</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6 flex-grow">Autonomous low-orbit survey unit. Equipped with high-fidelity sensory arrays and redundant propulsion.</p>
+<div class="flex justify-between items-center mt-auto border-t-[3px] border-true-black pt-4">
+<span class="font-label-mono text-label-mono text-true-black text-lg">M-CR 8,950</span>
+<button class="bg-primary-container text-paper-white neo-border neo-shadow neo-shadow-active font-label-mono text-label-mono uppercase px-4 py-2 hover:bg-secondary-container transition-colors">
+                            ORDER NOW
+                        </button>
+</div>
+</div>
+</div>
+<!-- Item 4 -->
+<div class="bg-paper-white neo-border flex flex-col relative group">
+<div class="absolute -top-4 -right-4 bg-primary-container text-paper-white px-3 py-1 neo-border neo-shadow font-headline-md text-[24px] leading-none z-10 rotate-3 group-hover:rotate-6 transition-transform">
+                    04
+                </div>
+<div class="h-64 border-b-[3px] border-true-black bg-surface-container overflow-hidden relative flex items-center justify-center">
+<div class="w-32 h-32 bg-true-black neo-border absolute rotate-45 transform group-hover:rotate-90 transition-transform duration-700 ease-in-out"></div>
+<div class="w-24 h-24 bg-primary-container neo-border absolute rotate-12 transform group-hover:-rotate-12 transition-transform duration-500 ease-in-out"></div>
+<span class="material-symbols-outlined text-[64px] text-paper-white relative z-10" style="font-variation-settings: 'FILL' 1;">shield</span>
+<div class="absolute top-4 left-4 flex gap-2">
+<span class="bg-true-black text-paper-white font-label-mono text-label-mono px-2 py-1 border-[3px] border-paper-white text-xs uppercase">DEFENSE</span>
+</div>
+</div>
+<div class="p-6 flex flex-col flex-grow">
+<h3 class="font-headline-md text-headline-md text-true-black leading-none mb-2 uppercase">AEGIS BARRIER GRID</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6 flex-grow">Deployable physical and electromagnetic shielding array. Modular configuration for scalable perimeter defense.</p>
+<div class="flex justify-between items-center mt-auto border-t-[3px] border-true-black pt-4">
+<span class="font-label-mono text-label-mono text-true-black text-lg">M-CR 12,000</span>
+<button class="bg-primary-container text-paper-white neo-border neo-shadow neo-shadow-active font-label-mono text-label-mono uppercase px-4 py-2 hover:bg-secondary-container transition-colors">
+                            ORDER NOW
+                        </button>
+</div>
+</div>
+</div>
+<!-- Promotion Block -->
+<div class="md:col-span-2 bg-secondary-container neo-border p-8 flex flex-col justify-center relative overflow-hidden group">
+<div class="absolute top-0 right-0 w-64 h-64 bg-true-black rounded-full mix-blend-overlay opacity-20 -translate-y-1/2 translate-x-1/4 group-hover:scale-110 transition-transform duration-700"></div>
+<div class="relative z-10 max-w-lg">
+<h2 class="font-display-2xl text-headline-lg-mobile md:text-headline-lg text-true-black uppercase leading-none mb-4 bg-paper-white inline-block px-2 neo-border">BULK ORDER DISCOUNT</h2>
+<p class="font-body-lg text-body-lg text-true-black mb-6 font-bold">Secure a 15% reduction in total cost when requisitioning 5 or more Core or Power class units simultaneously.</p>
+<button class="bg-true-black text-paper-white neo-border neo-shadow neo-shadow-active font-headline-md text-[24px] uppercase px-8 py-3 hover:text-primary transition-colors inline-block w-max">
+                        APPLY CLEARANCE
+                    </button>
+</div>
+<span class="material-symbols-outlined absolute bottom-4 right-4 text-[120px] text-true-black opacity-10">precision_manufacturing</span>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="bg-true-black dark:bg-deep-black w-full mt-section-padding border-t-[3px] border-true-black">
+<div class="flex flex-col md:flex-row justify-between items-start px-gutter py-12 max-w-container-max mx-auto">
+<div class="mb-8 md:mb-0">
+<div class="font-headline-lg text-headline-lg text-primary leading-none mb-4">MAVEN FORGE</div>
+<p class="font-body-md text-body-md uppercase text-paper-white/70 max-w-xs">Engineered for absolute resilience. Deploy with confidence.</p>
+</div>
+<div class="flex flex-col md:items-end gap-6">
+<div class="flex flex-wrap gap-4 md:gap-8 font-body-md text-body-md uppercase">
+<a class="text-paper-white/70 hover:text-primary-fixed-dim transition-colors cursor-pointer" href="#">INSTAGRAM</a>
+<a class="text-paper-white/70 hover:text-primary-fixed-dim transition-colors cursor-pointer" href="#">TWITTER</a>
+<a class="text-paper-white/70 hover:text-primary-fixed-dim transition-colors cursor-pointer" href="#">LINKEDIN</a>
+<a class="text-paper-white/70 hover:text-primary-fixed-dim transition-colors cursor-pointer" href="#">PRIVACY</a>
+<a class="text-paper-white/70 hover:text-primary-fixed-dim transition-colors cursor-pointer" href="#">TERMS</a>
+</div>
+<div class="text-paper-white font-label-mono text-label-mono">
+                    ©2024 MAVEN FORGE. ALL RIGHTS RESERVED.
+                </div>
+</div>
+</div>
+</footer>
+</body></html>

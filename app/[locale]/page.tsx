@@ -1,4 +1,5 @@
 import { AboutSection } from "@/components/site/about-section";
+import { CatalogExplorer } from "@/components/site/catalog-explorer";
 import { ContactSection } from "@/components/site/contact-section";
 import { HeroSection } from "@/components/site/hero-section";
 import { PortfolioSection } from "@/components/site/portfolio-section";
@@ -24,9 +25,10 @@ export default async function HomePage({ params }: LocalePageProps) {
       <AboutSection locale={locale} settings={data.settings} labels={copy.labels} />
       <ServicesSection locale={locale} items={data.services} labels={copy.labels} />
       <PortfolioSection locale={locale} items={data.portfolio} labels={copy.labels} />
+      <CatalogExplorer locale={locale} items={data.catalog} labels={copy.labels} />
       <TestimonialSection locale={locale} items={data.testimonials} />
       <TeamSection locale={locale} items={data.team} />
-      <ContactSection locale={locale} settings={data.settings} labels={copy.labels} />
+      <ContactSection locale={locale} settings={data.settings} />
     </main>
   );
 }

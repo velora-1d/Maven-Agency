@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Bebas_Neue, IBM_Plex_Mono } from "next/font/google";
+import { Bebas_Neue, JetBrains_Mono } from "next/font/google";
 
 import "@/app/globals.css";
 
@@ -9,9 +9,9 @@ const displayFont = Bebas_Neue({
   variable: "--font-display"
 });
 
-const bodyFont = IBM_Plex_Mono({
+const bodyFont = JetBrains_Mono({
   subsets: ["latin"],
-  weight: ["400", "500", "600"],
+  weight: ["400", "500", "700"],
   variable: "--font-body"
 });
 
@@ -31,9 +31,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
-        className={`${displayFont.variable} ${bodyFont.variable} font-[family:var(--font-body)] antialiased`}
+        className={`${displayFont.variable} ${bodyFont.variable} antialiased`}
+        suppressHydrationWarning
       >
         {children}
       </body>
