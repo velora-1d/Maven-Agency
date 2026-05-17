@@ -228,6 +228,54 @@ export const seedTestimonials: Testimonial[] = [
     rating: 5,
     isActive: true,
     sortOrder: 2
+  },
+  {
+    id: "testimonial-3",
+    clientName: "Bimaantara Jaya",
+    company: "FintechID Utama",
+    quote: {
+      id: "Kecepatan eksekusi tim MAVEN sangat luar biasa. Sistem backend kami yang rumit berhasil dioptimasi tanpa downtime sama sekali.",
+      en: "The execution speed of the MAVEN team is exceptional. Our complex backend system was optimized with zero downtime."
+    },
+    rating: 5,
+    isActive: true,
+    sortOrder: 3
+  },
+  {
+    id: "testimonial-4",
+    clientName: "Elena Rostova",
+    company: "Lumina Global Logistics",
+    quote: {
+      id: "Desain UI/UX yang diberikan tidak hanya indah dipandang, tetapi juga berhasil meningkatkan retensi pengguna aktif kami hingga 45% dalam kuartal pertama.",
+      en: "The UI/UX design provided is not only visually stunning but also increased our active user retention by 45% in the first quarter."
+    },
+    rating: 5,
+    isActive: true,
+    sortOrder: 4
+  },
+  {
+    id: "testimonial-5",
+    clientName: "Hendra Wijaya",
+    company: "Kopi Kultur Nusantara",
+    quote: {
+      id: "Storefront e-commerce baru kami super cepat dan responsif. Pengalaman checkout pelanggan kini jauh lebih mulus dan konversi penjualan melesat tajam.",
+      en: "Our new e-commerce storefront is blazing fast and responsive. The customer checkout experience is seamless, and sales conversions have skyrocketed."
+    },
+    rating: 5,
+    isActive: true,
+    sortOrder: 5
+  },
+  {
+    id: "testimonial-6",
+    clientName: "Sarah Chen",
+    company: "SaaSify Matrix",
+    quote: {
+      id: "Pendekatan automasi AI dari MAVEN Forge menghemat waktu kerja operasional tim kami hingga puluhan jam setiap minggunya. Sangat direkomendasikan!",
+      en: "The AI automation approach from MAVEN Forge saves our ops team dozens of hours every week. Highly recommended!"
+    },
+    rating: 5,
+    isActive: true,
+    sortOrder: 6
   }
 ];
 

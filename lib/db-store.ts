@@ -400,24 +400,21 @@ export async function ensureDatabaseSeeded() {
         .onConflictDoNothing();
     }
 
-    const existingTestimonial = await db.query.testimonials.findFirst();
-    if (!existingTestimonial) {
-      await db
-        .insert(testimonials)
-        .values(
-          seedTestimonials.map((item) => ({
-            id: item.id,
-            clientName: item.clientName,
-            company: item.company,
-            quoteId: item.quote.id,
-            quoteEn: item.quote.en,
-            rating: item.rating,
-            sortOrder: item.sortOrder,
-            isActive: item.isActive
-          }))
-        )
-        .onConflictDoNothing();
-    }
+    await db
+      .insert(testimonials)
+      .values(
+        seedTestimonials.map((item) => ({
+          id: item.id,
+          clientName: item.clientName,
+          company: item.company,
+          quoteId: item.quote.id,
+          quoteEn: item.quote.en,
+          rating: item.rating,
+          sortOrder: item.sortOrder,
+          isActive: item.isActive
+        }))
+      )
+      .onConflictDoNothing();
 
     const existingCatalog = await db.query.catalogItems.findFirst();
     if (!existingCatalog) {
