@@ -155,14 +155,51 @@ export function SettingsManager({ initialSettings }: SettingsManagerProps) {
         })}
 
         {/* Submit */}
-        <div className="flex flex-col sm:flex-row gap-4 w-full">
+        <div className="flex flex-col sm:flex-row sm:items-center gap-4 w-full pt-4">
           <button
             type="submit"
-            className="flex w-full sm:w-auto items-center justify-center gap-2 border-[3px] border-true-black bg-true-black px-10 py-4 font-display text-headline-md uppercase text-paper-white neo-shadow transition-all hover:bg-primary-container active:translate-x-1 active:translate-y-1 active:shadow-none"
+            disabled={status.type === "saving"}
+            className={`flex w-full sm:w-auto items-center justify-center gap-2 border-[3px] border-true-black px-10 py-4 font-display text-headline-md uppercase text-paper-white neo-shadow transition-all active:translate-x-1 active:translate-y-1 active:shadow-none ${
+              status.type === "saving"
+                ? "bg-surface-container text-on-surface cursor-not-allowed opacity-70"
+                : status.type === "saved"
+                ? "bg-true-black hover:bg-primary-container"
+                : status.type === "error"
+                ? "bg-primary-container hover:bg-true-black"
+                : "bg-true-black hover:bg-primary-container"
+            }`}
           >
-            <Check className="h-5 w-5" />
-            SAVE ALL SETTINGS
+            {status.type === "saving" ? (
+              <span className="animate-spin">⏳</span>
+            ) : status.type === "error" ? (
+              <X className="h-5 w-5" />
+            ) : (
+              <Check className="h-5 w-5" />
+            )}
+            {status.type === "saving"
+              ? "SAVING..."
+              : status.type === "saved"
+              ? "SAVED SUCCESSFULLY"
+              : status.type === "error"
+              ? "SAVE FAILED - RETRY"
+              : "SAVE ALL SETTINGS"}
           </button>
+
+          {status.msg && (
+            <div
+              className={`flex items-center gap-2 border-[3px] px-6 py-4 font-body text-label-mono uppercase ${
+                status.type === "saved"
+                  ? "border-true-black bg-true-black text-paper-white animate-bounce"
+                  : status.type === "error"
+                  ? "border-primary-container bg-primary-container text-paper-white animate-pulse"
+                  : "border-true-black bg-surface-container text-on-surface"
+              }`}
+            >
+              {status.type === "saved" && <Check className="h-5 w-5" />}
+              {status.type === "error" && <X className="h-5 w-5" />}
+              {status.msg}
+            </div>
+          )}
         </div>
       </form>
     </div>
