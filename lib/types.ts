@@ -88,6 +88,8 @@ export type SiteSettings = {
   heroSubheadline: LocalizedText;
   heroCtaLabel: LocalizedText;
   heroCtaHref: string;
+  heroImage1: string;
+  heroImage2: string;
   aboutHeadline: LocalizedText;
   aboutStory: LocalizedText;
   mission: LocalizedText;

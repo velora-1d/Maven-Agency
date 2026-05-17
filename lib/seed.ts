@@ -423,6 +423,8 @@ export const seedSettings: SiteSettings = {
     en: "Start a Project"
   },
   heroCtaHref: "#contact",
+  heroImage1: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80",
+  heroImage2: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&q=80",
   aboutHeadline: {
     id: "Studio digital dengan rasa editorial dan ritme produk yang cepat.",
     en: "A digital studio with editorial energy and a fast product rhythm."

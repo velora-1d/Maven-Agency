@@ -88,6 +88,8 @@ export const settingsSchema = z.object({
   heroSubheadline: localizedTextSchema,
   heroCtaLabel: localizedTextSchema,
   heroCtaHref: z.string().min(1),
+  heroImage1: z.string().optional(),
+  heroImage2: z.string().optional(),
   aboutHeadline: localizedTextSchema,
   aboutStory: localizedTextSchema,
   mission: localizedTextSchema,

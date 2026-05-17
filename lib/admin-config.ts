@@ -473,6 +473,8 @@ export function getSettingsFormValues(settings: SiteSettings): ResourceFormValue
     heroCtaLabelId: settings.heroCtaLabel.id,
     heroCtaLabelEn: settings.heroCtaLabel.en,
     heroCtaHref: settings.heroCtaHref,
+    heroImage1: settings.heroImage1,
+    heroImage2: settings.heroImage2,
     aboutHeadlineId: settings.aboutHeadline.id,
     aboutHeadlineEn: settings.aboutHeadline.en,
     aboutStoryId: settings.aboutStory.id,
@@ -514,6 +516,8 @@ export function getSettingsFields(): ResourceField[] {
     { name: "heroCtaLabelId", label: "Hero CTA Label ID", type: "text" },
     { name: "heroCtaLabelEn", label: "Hero CTA Label EN", type: "text" },
     { name: "heroCtaHref", label: "Hero CTA Href", type: "text" },
+    { name: "heroImage1", label: "Hero Image 1", type: "text", media: true },
+    { name: "heroImage2", label: "Hero Image 2", type: "text", media: true },
     { name: "aboutHeadlineId", label: "About Headline ID", type: "text" },
     { name: "aboutHeadlineEn", label: "About Headline EN", type: "text" },
     { name: "aboutStoryId", label: "About Story ID", type: "textarea" },
@@ -568,6 +572,8 @@ export function settingsValuesToPayload(values: ResourceFormValues): SiteSetting
       en: readString(values, "heroCtaLabelEn") || "Contact Us"
     },
     heroCtaHref: readString(values, "heroCtaHref") || "#contact",
+    heroImage1: readString(values, "heroImage1") || "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80",
+    heroImage2: readString(values, "heroImage2") || "https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&q=80",
     aboutHeadline: {
       id: readString(values, "aboutHeadlineId") || "Tentang Kami",
       en: readString(values, "aboutHeadlineEn") || "About Us"

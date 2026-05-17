@@ -126,6 +126,8 @@ export const siteSettings = pgTable("site_settings", {
   heroCtaLabelId: text("hero_cta_label_id").notNull(),
   heroCtaLabelEn: text("hero_cta_label_en").notNull(),
   heroCtaHref: text("hero_cta_href").notNull(),
+  heroImage1: text("hero_image_1").notNull().default(""),
+  heroImage2: text("hero_image_2").notNull().default(""),
   aboutHeadlineId: text("about_headline_id").notNull(),
   aboutHeadlineEn: text("about_headline_en").notNull(),
   aboutStoryId: text("about_story_id").notNull(),

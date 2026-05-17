@@ -83,7 +83,7 @@ export function HeroSection({ locale, settings, labels }: HeroSectionProps) {
             {/* Image 1 — top right */}
             <div className="absolute right-0 top-0 z-10 h-[60%] w-[80%] overflow-hidden border-[3px] border-true-black bg-paper-white neo-shadow">
               <Image
-                src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80"
+                src={settings.heroImage1 || "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80"}
                 alt="Industrial Tech"
                 fill
                 sizes="(max-width: 768px) 80vw, 50vw"
@@ -93,7 +93,7 @@ export function HeroSection({ locale, settings, labels }: HeroSectionProps) {
             {/* Image 2 — bottom left */}
             <div className="absolute bottom-0 left-0 z-20 h-[55%] w-[70%] overflow-hidden border-[3px] border-true-black bg-primary-container neo-shadow">
               <Image
-                src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&q=80"
+                src={settings.heroImage2 || "https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&q=80"}
                 alt="Machine Logic"
                 fill
                 sizes="(max-width: 768px) 70vw, 40vw"

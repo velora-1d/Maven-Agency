@@ -10,6 +10,7 @@ import {
   type ResourceFormValues
 } from "@/lib/admin-config";
 import type { SiteSettings } from "@/lib/types";
+import { MediaUploadField } from "@/components/admin/media-upload-field";
 
 type SettingsManagerProps = {
   initialSettings: SiteSettings;
@@ -21,6 +22,8 @@ const SECTION_LABELS: Record<string, string> = {
   heroSubheadlineId: "HERO",
   heroCtaLabelId: "HERO",
   heroCtaHref: "HERO",
+  heroImage1: "HERO",
+  heroImage2: "HERO",
   aboutHeadlineId: "ABOUT",
   aboutStoryId: "ABOUT",
   missionId: "ABOUT",
@@ -145,6 +148,13 @@ export function SettingsManager({ initialSettings }: SettingsManagerProps) {
                         value={String(formValues[field.name] ?? "")}
                         onChange={(e) => updateField(field.name, e.target.value)}
                         className="neo-input w-full px-4 py-3 font-body text-body-md text-on-surface normal-case"
+                      />
+                    )}
+                    {field.media && (
+                      <MediaUploadField
+                        value={String(formValues[field.name] ?? "")}
+                        resource="settings"
+                        onUploaded={(val) => updateField(field.name, val)}
                       />
                     )}
                   </label>
