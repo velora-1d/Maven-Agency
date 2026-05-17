@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
+import { revalidatePath } from "next/cache";
 import { ZodError } from "zod";
 
 import { authOptions } from "@/lib/auth-options";
@@ -58,6 +59,8 @@ export async function POST(
     const payload = await request.json();
     const item = resourceSchemas[resource].parse(payload);
     const saved = await createResourceItem(resource, item);
+
+    revalidatePath("/", "layout");
 
     return NextResponse.json(saved, { status: 201 });
   } catch (error) {

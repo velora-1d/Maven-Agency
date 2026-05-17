@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
+import { revalidatePath } from "next/cache";
 import { ZodError } from "zod";
 
 import { authOptions } from "@/lib/auth-options";
@@ -27,6 +28,8 @@ export async function PUT(request: Request) {
   try {
     const payload = settingsSchema.parse(await request.json());
     const saved = await saveSettings(payload);
+
+    revalidatePath("/", "layout");
 
     return NextResponse.json(saved);
   } catch (error) {

@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
+import { revalidatePath } from "next/cache";
 import { ZodError } from "zod";
 
 import { authOptions } from "@/lib/auth-options";
@@ -40,6 +41,8 @@ export async function PATCH(
     const item = resourceSchemas[resource].parse(payload);
     const saved = await updateResourceItem(resource, id, item);
 
+    revalidatePath("/", "layout");
+
     return NextResponse.json(saved);
   } catch (error) {
     if (error instanceof ZodError) {
@@ -68,6 +71,9 @@ export async function DELETE(
 
   try {
     const result = await deleteResourceItem(resource, id);
+
+    revalidatePath("/", "layout");
+
     return NextResponse.json(result);
   } catch (error) {
     console.error(`[maven-forge] DELETE /api/admin/${resource}/${id} error:`, error);
