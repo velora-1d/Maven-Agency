@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 
 import { pickLocaleText } from "@/lib/i18n";
 import type { Locale, SiteSettings } from "@/lib/types";
@@ -81,18 +82,22 @@ export function HeroSection({ locale, settings, labels }: HeroSectionProps) {
           <AnimatedReveal direction="left" delay={200} className="relative mt-12 h-[480px] md:col-span-5 md:mt-0">
             {/* Image 1 — top right */}
             <div className="absolute right-0 top-0 z-10 h-[60%] w-[80%] overflow-hidden border-[3px] border-true-black bg-paper-white neo-shadow">
-              <img
+              <Image
                 src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80"
                 alt="Industrial Tech"
-                className="h-full w-full object-cover grayscale contrast-125"
+                fill
+                sizes="(max-width: 768px) 80vw, 50vw"
+                className="object-cover grayscale contrast-125"
               />
             </div>
             {/* Image 2 — bottom left */}
             <div className="absolute bottom-0 left-0 z-20 h-[55%] w-[70%] overflow-hidden border-[3px] border-true-black bg-primary-container neo-shadow">
-              <img
+              <Image
                 src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&q=80"
                 alt="Machine Logic"
-                className="h-full w-full object-cover mix-blend-multiply"
+                fill
+                sizes="(max-width: 768px) 70vw, 40vw"
+                className="object-cover mix-blend-multiply"
               />
               <div className="absolute bottom-0 left-0 w-full border-t-[3px] border-true-black bg-true-black p-3">
                 <span className="font-body text-label-mono uppercase text-paper-white">

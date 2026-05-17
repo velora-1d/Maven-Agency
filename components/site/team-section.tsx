@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { pickLocaleText } from "@/lib/i18n";
 import type { Locale, TeamMember } from "@/lib/types";
 import { AnimatedReveal } from "@/components/animated-reveal";
@@ -47,10 +48,12 @@ export function TeamSection({ locale, items }: TeamSectionProps) {
               >
                 {/* Avatar */}
                 <div className="relative aspect-[4/5] overflow-hidden border-b-[3px] border-true-black bg-surface-container">
-                  <img
+                  <Image
                     src={member.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(member.name)}&background=000&color=fff&size=400`}
                     alt={member.name}
-                    className="h-full w-full object-cover grayscale transition-all duration-500 group-hover:grayscale-0"
+                    fill
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                    className="object-cover grayscale transition-all duration-500 group-hover:grayscale-0"
                   />
                   {/* Role tag overlay */}
                   <div className={`absolute bottom-0 left-0 border-r-[3px] border-t-[3px] border-true-black px-4 py-2 font-body text-label-mono uppercase text-paper-white ${style.roleBg}`}>

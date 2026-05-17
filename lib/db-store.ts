@@ -15,7 +15,7 @@ import {
   seedServices,
   seedSettings,
   seedTeam,
-  seedTestimonials
+  seedTestimonials,
 } from "@/lib/seed";
 import type {
   AdminResourceKey,
@@ -27,7 +27,7 @@ import type {
   ServiceItem,
   SiteSettings,
   TeamMember,
-  Testimonial
+  Testimonial,
 } from "@/lib/types";
 import {
   catalogItemFeatures,
@@ -39,7 +39,7 @@ import {
   siteSettings,
   teamMembers,
   testimonials,
-  users
+  users,
 } from "@/drizzle/schema";
 
 type CatalogFeatureRow = typeof catalogItemFeatures.$inferSelect;
@@ -85,7 +85,10 @@ function getDatabase() {
 }
 
 export function isRecoverableDbError(error: unknown) {
-  console.warn("[maven-forge DB Error]", error instanceof Error ? error.message : String(error));
+  console.warn(
+    "[maven-forge DB Error]",
+    error instanceof Error ? error.message : String(error),
+  );
   // Treat all DB errors (connection, missing tables, auth failures) as recoverable
   // so the application gracefully falls back to seed-memory without breaking the dashboard.
   return true;
@@ -97,43 +100,45 @@ function toServiceItem(row: typeof services.$inferSelect): ServiceItem {
     slug: row.slug,
     title: {
       id: row.titleId,
-      en: row.titleEn
+      en: row.titleEn,
     },
     description: {
       id: row.descriptionId,
-      en: row.descriptionEn
+      en: row.descriptionEn,
     },
     icon: row.icon,
     blockColor: row.blockColor,
     isActive: row.isActive,
-    sortOrder: row.sortOrder
+    sortOrder: row.sortOrder,
   };
 }
 
-function toPortfolioItem(row: typeof portfolioProjects.$inferSelect): PortfolioProject {
+function toPortfolioItem(
+  row: typeof portfolioProjects.$inferSelect,
+): PortfolioProject {
   return {
     id: row.id,
     slug: row.slug,
     title: {
       id: row.titleId,
-      en: row.titleEn
+      en: row.titleEn,
     },
     summary: {
       id: row.summaryId,
-      en: row.summaryEn
+      en: row.summaryEn,
     },
     category: {
       id: row.categoryId,
-      en: row.categoryEn
+      en: row.categoryEn,
     },
     highlight: {
       id: row.highlightId,
-      en: row.highlightEn
+      en: row.highlightEn,
     },
     image: row.image,
     techStack: row.techStack ?? [],
     isActive: row.isActive,
-    sortOrder: row.sortOrder
+    sortOrder: row.sortOrder,
   };
 }
 
@@ -143,16 +148,16 @@ function toTeamMember(row: typeof teamMembers.$inferSelect): TeamMember {
     name: row.name,
     role: {
       id: row.roleId,
-      en: row.roleEn
+      en: row.roleEn,
     },
     bio: {
       id: row.bioId,
-      en: row.bioEn
+      en: row.bioEn,
     },
     avatar: row.avatar,
     socials: row.socials ?? [],
     isActive: row.isActive,
-    sortOrder: row.sortOrder
+    sortOrder: row.sortOrder,
   };
 }
 
@@ -163,33 +168,33 @@ function toTestimonial(row: typeof testimonials.$inferSelect): Testimonial {
     company: row.company,
     quote: {
       id: row.quoteId,
-      en: row.quoteEn
+      en: row.quoteEn,
     },
     rating: row.rating,
     isActive: row.isActive,
-    sortOrder: row.sortOrder
+    sortOrder: row.sortOrder,
   };
 }
 
 function buildCatalogItems(
   itemRows: Array<typeof catalogItems.$inferSelect>,
   featureRows: CatalogFeatureRow[],
-  technologyRows: CatalogTechnologyRow[]
+  technologyRows: CatalogTechnologyRow[],
 ): CatalogItem[] {
   return itemRows.map((row) => ({
     id: row.id,
     slug: row.slug,
     name: {
       id: row.nameId,
-      en: row.nameEn
+      en: row.nameEn,
     },
     description: {
       id: row.descriptionId,
-      en: row.descriptionEn
+      en: row.descriptionEn,
     },
     category: {
       id: row.categoryId,
-      en: row.categoryEn
+      en: row.categoryEn,
     },
     technologyLabels: technologyRows
       .filter((entry) => entry.itemId === row.id)
@@ -200,18 +205,18 @@ function buildCatalogItems(
       .sort((a, b) => a.sortOrder - b.sortOrder)
       .map((entry) => ({
         id: entry.featureId,
-        en: entry.featureEn
+        en: entry.featureEn,
       })),
     priceFrom: row.priceFrom,
     priceTo: row.priceTo,
     priceLabel: {
       id: row.priceLabelId,
-      en: row.priceLabelEn
+      en: row.priceLabelEn,
     },
     isPriceHidden: row.isPriceHidden,
     ctaUrl: row.ctaUrl,
     isActive: row.isActive,
-    sortOrder: row.sortOrder
+    sortOrder: row.sortOrder,
   }));
 }
 
@@ -219,55 +224,55 @@ function toSettings(row: typeof siteSettings.$inferSelect): SiteSettings {
   return {
     heroBadge: {
       id: row.heroBadgeId,
-      en: row.heroBadgeEn
+      en: row.heroBadgeEn,
     },
     heroHeadline: {
       id: row.heroHeadlineId,
-      en: row.heroHeadlineEn
+      en: row.heroHeadlineEn,
     },
     heroSubheadline: {
       id: row.heroSubheadlineId,
-      en: row.heroSubheadlineEn
+      en: row.heroSubheadlineEn,
     },
     heroCtaLabel: {
       id: row.heroCtaLabelId,
-      en: row.heroCtaLabelEn
+      en: row.heroCtaLabelEn,
     },
     heroCtaHref: row.heroCtaHref,
     aboutHeadline: {
       id: row.aboutHeadlineId,
-      en: row.aboutHeadlineEn
+      en: row.aboutHeadlineEn,
     },
     aboutStory: {
       id: row.aboutStoryId,
-      en: row.aboutStoryEn
+      en: row.aboutStoryEn,
     },
     mission: {
       id: row.missionId,
-      en: row.missionEn
+      en: row.missionEn,
     },
     vision: {
       id: row.visionId,
-      en: row.visionEn
+      en: row.visionEn,
     },
     stats: row.stats as SiteSettings["stats"],
     whyUs: row.whyUs as SiteSettings["whyUs"],
     contactHeadline: {
       id: row.contactHeadlineId,
-      en: row.contactHeadlineEn
+      en: row.contactHeadlineEn,
     },
     contactCopy: {
       id: row.contactCopyId,
-      en: row.contactCopyEn
+      en: row.contactCopyEn,
     },
     whatsapp: row.whatsapp,
     phone: row.phone,
     email: row.email,
     address: {
       id: row.addressId,
-      en: row.addressEn
+      en: row.addressEn,
     },
-    socials: row.socials as SiteSettings["socials"]
+    socials: row.socials as SiteSettings["socials"],
   };
 }
 
@@ -293,8 +298,8 @@ async function seedCatalogTables(items: CatalogItem[]) {
         isPriceHidden: item.isPriceHidden,
         ctaUrl: item.ctaUrl,
         sortOrder: item.sortOrder,
-        isActive: item.isActive
-      }))
+        isActive: item.isActive,
+      })),
     )
     .onConflictDoNothing();
 
@@ -304,8 +309,8 @@ async function seedCatalogTables(items: CatalogItem[]) {
       itemId: item.id,
       featureId: feature.id,
       featureEn: feature.en,
-      sortOrder: index + 1
-    }))
+      sortOrder: index + 1,
+    })),
   );
 
   const technologyValues = items.flatMap((item) =>
@@ -313,12 +318,15 @@ async function seedCatalogTables(items: CatalogItem[]) {
       id: `${item.id}-tech-${index + 1}`,
       itemId: item.id,
       label,
-      sortOrder: index + 1
-    }))
+      sortOrder: index + 1,
+    })),
   );
 
   if (featureValues.length) {
-    await db.insert(catalogItemFeatures).values(featureValues).onConflictDoNothing();
+    await db
+      .insert(catalogItemFeatures)
+      .values(featureValues)
+      .onConflictDoNothing();
   }
 
   if (technologyValues.length) {
@@ -348,8 +356,8 @@ export async function ensureDatabaseSeeded() {
             icon: item.icon,
             blockColor: item.blockColor,
             sortOrder: item.sortOrder,
-            isActive: item.isActive
-          }))
+            isActive: item.isActive,
+          })),
         )
         .onConflictDoNothing();
     }
@@ -373,8 +381,8 @@ export async function ensureDatabaseSeeded() {
             image: item.image,
             techStack: item.techStack,
             sortOrder: item.sortOrder,
-            isActive: item.isActive
-          }))
+            isActive: item.isActive,
+          })),
         )
         .onConflictDoNothing();
     }
@@ -394,8 +402,8 @@ export async function ensureDatabaseSeeded() {
             avatar: item.avatar,
             socials: item.socials,
             sortOrder: item.sortOrder,
-            isActive: item.isActive
-          }))
+            isActive: item.isActive,
+          })),
         )
         .onConflictDoNothing();
     }
@@ -411,8 +419,8 @@ export async function ensureDatabaseSeeded() {
           quoteEn: item.quote.en,
           rating: item.rating,
           sortOrder: item.sortOrder,
-          isActive: item.isActive
-        }))
+          isActive: item.isActive,
+        })),
       )
       .onConflictDoNothing();
 
@@ -455,7 +463,7 @@ export async function ensureDatabaseSeeded() {
           email: seedSettings.email,
           addressId: seedSettings.address.id,
           addressEn: seedSettings.address.en,
-          socials: seedSettings.socials
+          socials: seedSettings.socials,
         })
         .onConflictDoNothing();
     }
@@ -463,14 +471,14 @@ export async function ensureDatabaseSeeded() {
     const adminEmail = getEnvValue("ADMIN_EMAIL", "");
     const adminPasswordHash = hashSync(
       getEnvValue("ADMIN_PASSWORD", randomUUID()),
-      10
+      10,
     );
 
     const existingUserById = await db.query.users.findFirst({
-      where: eq(users.id, "internal-admin")
+      where: eq(users.id, "internal-admin"),
     });
     const existingUserByEmail = await db.query.users.findFirst({
-      where: eq(users.email, adminEmail)
+      where: eq(users.email, adminEmail),
     });
 
     if (existingUserById) {
@@ -479,7 +487,7 @@ export async function ensureDatabaseSeeded() {
         .set({
           email: adminEmail,
           passwordHash: adminPasswordHash,
-          role: "admin"
+          role: "admin",
         })
         .where(eq(users.id, existingUserById.id));
     } else if (existingUserByEmail) {
@@ -488,7 +496,7 @@ export async function ensureDatabaseSeeded() {
         .set({
           id: "internal-admin",
           passwordHash: adminPasswordHash,
-          role: "admin"
+          role: "admin",
         })
         .where(eq(users.email, existingUserByEmail.email));
     } else {
@@ -498,7 +506,7 @@ export async function ensureDatabaseSeeded() {
           id: "internal-admin",
           email: adminEmail,
           passwordHash: adminPasswordHash,
-          role: "admin"
+          role: "admin",
         })
         .onConflictDoNothing();
     }
@@ -514,8 +522,8 @@ export async function ensureDatabaseSeeded() {
             locale: view.locale,
             referrer: view.referrer,
             visitorId: view.visitorId,
-            visitedAt: new Date(view.visitedAt)
-          }))
+            visitedAt: new Date(view.visitedAt),
+          })),
         )
         .onConflictDoNothing();
     }
@@ -533,7 +541,7 @@ export async function findAdminUserByEmail(email: string) {
   await ensureDatabaseSeeded();
   const db = getDatabase();
   return db.query.users.findFirst({
-    where: eq(users.email, email)
+    where: eq(users.email, email),
   });
 }
 
@@ -541,27 +549,53 @@ export async function getPublicSiteDataFromDb(): Promise<PublicSiteData> {
   await ensureDatabaseSeeded();
   const db = getDatabase();
 
-  const [serviceRows, portfolioRows, teamRows, testimonialRows, catalogRows, featureRows, techRows, settingsRow] =
-    await Promise.all([
-      db.select().from(services).where(eq(services.isActive, true)).orderBy(asc(services.sortOrder)),
-      db
-        .select()
-        .from(portfolioProjects)
-        .where(eq(portfolioProjects.isActive, true))
-        .orderBy(asc(portfolioProjects.sortOrder)),
-      db.select().from(teamMembers).where(eq(teamMembers.isActive, true)).orderBy(asc(teamMembers.sortOrder)),
-      db
-        .select()
-        .from(testimonials)
-        .where(eq(testimonials.isActive, true))
-        .orderBy(asc(testimonials.sortOrder)),
-      db.select().from(catalogItems).where(eq(catalogItems.isActive, true)).orderBy(asc(catalogItems.sortOrder)),
-      db.select().from(catalogItemFeatures).orderBy(asc(catalogItemFeatures.sortOrder)),
-      db.select().from(catalogItemTechnologies).orderBy(asc(catalogItemTechnologies.sortOrder)),
-      db.query.siteSettings.findFirst({
-        where: eq(siteSettings.id, "global")
-      })
-    ]);
+  const [
+    serviceRows,
+    portfolioRows,
+    teamRows,
+    testimonialRows,
+    catalogRows,
+    featureRows,
+    techRows,
+    settingsRow,
+  ] = await Promise.all([
+    db
+      .select()
+      .from(services)
+      .where(eq(services.isActive, true))
+      .orderBy(asc(services.sortOrder)),
+    db
+      .select()
+      .from(portfolioProjects)
+      .where(eq(portfolioProjects.isActive, true))
+      .orderBy(asc(portfolioProjects.sortOrder)),
+    db
+      .select()
+      .from(teamMembers)
+      .where(eq(teamMembers.isActive, true))
+      .orderBy(asc(teamMembers.sortOrder)),
+    db
+      .select()
+      .from(testimonials)
+      .where(eq(testimonials.isActive, true))
+      .orderBy(asc(testimonials.sortOrder)),
+    db
+      .select()
+      .from(catalogItems)
+      .where(eq(catalogItems.isActive, true))
+      .orderBy(asc(catalogItems.sortOrder)),
+    db
+      .select()
+      .from(catalogItemFeatures)
+      .orderBy(asc(catalogItemFeatures.sortOrder)),
+    db
+      .select()
+      .from(catalogItemTechnologies)
+      .orderBy(asc(catalogItemTechnologies.sortOrder)),
+    db.query.siteSettings.findFirst({
+      where: eq(siteSettings.id, "global"),
+    }),
+  ]);
 
   return {
     services: serviceRows.map(toServiceItem),
@@ -569,7 +603,7 @@ export async function getPublicSiteDataFromDb(): Promise<PublicSiteData> {
     team: teamRows.map(toTeamMember),
     testimonials: testimonialRows.map(toTestimonial),
     catalog: buildCatalogItems(catalogRows, featureRows, techRows),
-    settings: settingsRow ? toSettings(settingsRow) : seedSettings
+    settings: settingsRow ? toSettings(settingsRow) : seedSettings,
   };
 }
 
@@ -579,7 +613,11 @@ export async function listResourceFromDb(resource: AdminResourceKey) {
 
   switch (resource) {
     case "services":
-      return db.select().from(services).orderBy(asc(services.sortOrder)).then((rows) => rows.map(toServiceItem));
+      return db
+        .select()
+        .from(services)
+        .orderBy(asc(services.sortOrder))
+        .then((rows) => rows.map(toServiceItem));
     case "portfolio":
       return db
         .select()
@@ -587,7 +625,11 @@ export async function listResourceFromDb(resource: AdminResourceKey) {
         .orderBy(asc(portfolioProjects.sortOrder))
         .then((rows) => rows.map(toPortfolioItem));
     case "team":
-      return db.select().from(teamMembers).orderBy(asc(teamMembers.sortOrder)).then((rows) => rows.map(toTeamMember));
+      return db
+        .select()
+        .from(teamMembers)
+        .orderBy(asc(teamMembers.sortOrder))
+        .then((rows) => rows.map(toTeamMember));
     case "testimonials":
       return db
         .select()
@@ -597,8 +639,14 @@ export async function listResourceFromDb(resource: AdminResourceKey) {
     case "catalog": {
       const [itemRows, featureRows, techRows] = await Promise.all([
         db.select().from(catalogItems).orderBy(asc(catalogItems.sortOrder)),
-        db.select().from(catalogItemFeatures).orderBy(asc(catalogItemFeatures.sortOrder)),
-        db.select().from(catalogItemTechnologies).orderBy(asc(catalogItemTechnologies.sortOrder))
+        db
+          .select()
+          .from(catalogItemFeatures)
+          .orderBy(asc(catalogItemFeatures.sortOrder)),
+        db
+          .select()
+          .from(catalogItemTechnologies)
+          .orderBy(asc(catalogItemTechnologies.sortOrder)),
       ]);
       return buildCatalogItems(itemRows, featureRows, techRows);
     }
@@ -609,7 +657,7 @@ export async function getSettingsFromDb() {
   await ensureDatabaseSeeded();
   const db = getDatabase();
   const row = await db.query.siteSettings.findFirst({
-    where: eq(siteSettings.id, "global")
+    where: eq(siteSettings.id, "global"),
   });
   return row ? toSettings(row) : seedSettings;
 }
@@ -649,7 +697,7 @@ export async function saveSettingsToDb(settingsValue: SiteSettings) {
       email: settingsValue.email,
       addressId: settingsValue.address.id,
       addressEn: settingsValue.address.en,
-      socials: settingsValue.socials
+      socials: settingsValue.socials,
     })
     .where(eq(siteSettings.id, "global"));
 
@@ -658,9 +706,12 @@ export async function saveSettingsToDb(settingsValue: SiteSettings) {
 
 export async function createResourceItemInDb(
   resource: AdminResourceKey,
-  item: Omit<ServiceItem | PortfolioProject | TeamMember | Testimonial | CatalogItem, "id"> & {
+  item: Omit<
+    ServiceItem | PortfolioProject | TeamMember | Testimonial | CatalogItem,
+    "id"
+  > & {
     id?: string;
-  }
+  },
 ) {
   await ensureDatabaseSeeded();
   const db = getDatabase();
@@ -679,7 +730,7 @@ export async function createResourceItemInDb(
         icon: value.icon,
         blockColor: value.blockColor,
         sortOrder: value.sortOrder,
-        isActive: value.isActive
+        isActive: value.isActive,
       });
       return { id, ...value };
     }
@@ -699,7 +750,7 @@ export async function createResourceItemInDb(
         image: value.image,
         techStack: value.techStack,
         sortOrder: value.sortOrder,
-        isActive: value.isActive
+        isActive: value.isActive,
       });
       return { id, ...value };
     }
@@ -715,7 +766,7 @@ export async function createResourceItemInDb(
         avatar: value.avatar,
         socials: value.socials,
         sortOrder: value.sortOrder,
-        isActive: value.isActive
+        isActive: value.isActive,
       });
       return { id, ...value };
     }
@@ -729,7 +780,7 @@ export async function createResourceItemInDb(
         quoteEn: value.quote.en,
         rating: value.rating,
         sortOrder: value.sortOrder,
-        isActive: value.isActive
+        isActive: value.isActive,
       });
       return { id, ...value };
     }
@@ -751,7 +802,7 @@ export async function createResourceItemInDb(
         isPriceHidden: value.isPriceHidden,
         ctaUrl: value.ctaUrl,
         sortOrder: value.sortOrder,
-        isActive: value.isActive
+        isActive: value.isActive,
       });
 
       if (value.features.length) {
@@ -761,8 +812,8 @@ export async function createResourceItemInDb(
             itemId: id,
             featureId: feature.id,
             featureEn: feature.en,
-            sortOrder: index + 1
-          }))
+            sortOrder: index + 1,
+          })),
         );
       }
 
@@ -772,8 +823,8 @@ export async function createResourceItemInDb(
             id: `${id}-tech-${index + 1}`,
             itemId: id,
             label,
-            sortOrder: index + 1
-          }))
+            sortOrder: index + 1,
+          })),
         );
       }
 
@@ -785,9 +836,12 @@ export async function createResourceItemInDb(
 export async function updateResourceItemInDb(
   resource: AdminResourceKey,
   id: string,
-  item: Omit<ServiceItem | PortfolioProject | TeamMember | Testimonial | CatalogItem, "id"> & {
+  item: Omit<
+    ServiceItem | PortfolioProject | TeamMember | Testimonial | CatalogItem,
+    "id"
+  > & {
     id?: string;
-  }
+  },
 ) {
   await ensureDatabaseSeeded();
   const db = getDatabase();
@@ -806,7 +860,7 @@ export async function updateResourceItemInDb(
           icon: value.icon,
           blockColor: value.blockColor,
           sortOrder: value.sortOrder,
-          isActive: value.isActive
+          isActive: value.isActive,
         })
         .where(eq(services.id, id));
       return { id, ...value };
@@ -828,7 +882,7 @@ export async function updateResourceItemInDb(
           image: value.image,
           techStack: value.techStack,
           sortOrder: value.sortOrder,
-          isActive: value.isActive
+          isActive: value.isActive,
         })
         .where(eq(portfolioProjects.id, id));
       return { id, ...value };
@@ -846,7 +900,7 @@ export async function updateResourceItemInDb(
           avatar: value.avatar,
           socials: value.socials,
           sortOrder: value.sortOrder,
-          isActive: value.isActive
+          isActive: value.isActive,
         })
         .where(eq(teamMembers.id, id));
       return { id, ...value };
@@ -862,7 +916,7 @@ export async function updateResourceItemInDb(
           quoteEn: value.quote.en,
           rating: value.rating,
           sortOrder: value.sortOrder,
-          isActive: value.isActive
+          isActive: value.isActive,
         })
         .where(eq(testimonials.id, id));
       return { id, ...value };
@@ -886,12 +940,16 @@ export async function updateResourceItemInDb(
           isPriceHidden: value.isPriceHidden,
           ctaUrl: value.ctaUrl,
           sortOrder: value.sortOrder,
-          isActive: value.isActive
+          isActive: value.isActive,
         })
         .where(eq(catalogItems.id, id));
 
-      await db.delete(catalogItemFeatures).where(eq(catalogItemFeatures.itemId, id));
-      await db.delete(catalogItemTechnologies).where(eq(catalogItemTechnologies.itemId, id));
+      await db
+        .delete(catalogItemFeatures)
+        .where(eq(catalogItemFeatures.itemId, id));
+      await db
+        .delete(catalogItemTechnologies)
+        .where(eq(catalogItemTechnologies.itemId, id));
 
       if (value.features.length) {
         await db.insert(catalogItemFeatures).values(
@@ -900,8 +958,8 @@ export async function updateResourceItemInDb(
             itemId: id,
             featureId: feature.id,
             featureEn: feature.en,
-            sortOrder: index + 1
-          }))
+            sortOrder: index + 1,
+          })),
         );
       }
 
@@ -911,8 +969,8 @@ export async function updateResourceItemInDb(
             id: `${id}-tech-${index + 1}`,
             itemId: id,
             label,
-            sortOrder: index + 1
-          }))
+            sortOrder: index + 1,
+          })),
         );
       }
 
@@ -923,7 +981,7 @@ export async function updateResourceItemInDb(
 
 export async function deleteResourceItemFromDb(
   resource: AdminResourceKey,
-  id: string
+  id: string,
 ): Promise<{ ok: true }> {
   await ensureDatabaseSeeded();
   const db = getDatabase();
@@ -942,8 +1000,12 @@ export async function deleteResourceItemFromDb(
       await db.delete(testimonials).where(eq(testimonials.id, id));
       break;
     case "catalog":
-      await db.delete(catalogItemFeatures).where(eq(catalogItemFeatures.itemId, id));
-      await db.delete(catalogItemTechnologies).where(eq(catalogItemTechnologies.itemId, id));
+      await db
+        .delete(catalogItemFeatures)
+        .where(eq(catalogItemFeatures.itemId, id));
+      await db
+        .delete(catalogItemTechnologies)
+        .where(eq(catalogItemTechnologies.itemId, id));
       await db.delete(catalogItems).where(eq(catalogItems.id, id));
       break;
   }
@@ -951,7 +1013,9 @@ export async function deleteResourceItemFromDb(
   return { ok: true };
 }
 
-export async function recordPageViewInDb(view: Omit<PageView, "id" | "visitedAt">) {
+export async function recordPageViewInDb(
+  view: Omit<PageView, "id" | "visitedAt">,
+) {
   await ensureDatabaseSeeded();
   const db = getDatabase();
   await db.insert(pageViews).values({
@@ -960,7 +1024,7 @@ export async function recordPageViewInDb(view: Omit<PageView, "id" | "visitedAt"
     locale: view.locale,
     referrer: view.referrer,
     visitorId: view.visitorId,
-    visitedAt: new Date()
+    visitedAt: new Date(),
   });
 }
 
@@ -968,15 +1032,21 @@ export async function getDashboardMetricsFromDb(): Promise<DashboardMetrics> {
   await ensureDatabaseSeeded();
   const db = getDatabase();
 
-  const [views, serviceRows, portfolioRows, teamRows, testimonialRows, catalogRows] =
-    await Promise.all([
-      db.select().from(pageViews).orderBy(desc(pageViews.visitedAt)),
-      db.select().from(services),
-      db.select().from(portfolioProjects),
-      db.select().from(teamMembers),
-      db.select().from(testimonials),
-      db.select().from(catalogItems)
-    ]);
+  const [
+    views,
+    serviceRows,
+    portfolioRows,
+    teamRows,
+    testimonialRows,
+    catalogRows,
+  ] = await Promise.all([
+    db.select().from(pageViews).orderBy(desc(pageViews.visitedAt)),
+    db.select().from(services),
+    db.select().from(portfolioProjects),
+    db.select().from(teamMembers),
+    db.select().from(testimonials),
+    db.select().from(catalogItems),
+  ]);
 
   const pageMap = new Map<string, number>();
   const referrerMap = new Map<string, number>();
@@ -984,7 +1054,10 @@ export async function getDashboardMetricsFromDb(): Promise<DashboardMetrics> {
   for (const view of views) {
     pageMap.set(view.path, (pageMap.get(view.path) ?? 0) + 1);
     const normalizedReferrer = view.referrer || "direct";
-    referrerMap.set(normalizedReferrer, (referrerMap.get(normalizedReferrer) ?? 0) + 1);
+    referrerMap.set(
+      normalizedReferrer,
+      (referrerMap.get(normalizedReferrer) ?? 0) + 1,
+    );
   }
 
   return {
@@ -999,11 +1072,23 @@ export async function getDashboardMetricsFromDb(): Promise<DashboardMetrics> {
       .sort((a, b) => b.total - a.total)
       .slice(0, 5),
     activeCounts: [
-      { label: "Services", total: serviceRows.filter((item) => item.isActive).length },
-      { label: "Portfolio", total: portfolioRows.filter((item) => item.isActive).length },
+      {
+        label: "Services",
+        total: serviceRows.filter((item) => item.isActive).length,
+      },
+      {
+        label: "Portfolio",
+        total: portfolioRows.filter((item) => item.isActive).length,
+      },
       { label: "Team", total: teamRows.filter((item) => item.isActive).length },
-      { label: "Testimonials", total: testimonialRows.filter((item) => item.isActive).length },
-      { label: "Catalog", total: catalogRows.filter((item) => item.isActive).length }
-    ]
+      {
+        label: "Testimonials",
+        total: testimonialRows.filter((item) => item.isActive).length,
+      },
+      {
+        label: "Catalog",
+        total: catalogRows.filter((item) => item.isActive).length,
+      },
+    ],
   };
 }
